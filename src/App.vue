@@ -2,7 +2,11 @@
 	div#app
 		header-component
 		main-component
-			router-view
+			transition(
+				name = "fade"
+				mode = "out-in"
+			)
+				router-view
 </template>
 
 <script>

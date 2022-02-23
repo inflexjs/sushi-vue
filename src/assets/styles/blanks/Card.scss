@@ -1,6 +1,6 @@
 .card {
 	width: 250px;
-	min-height: 380px;
+	// min-height: 380px;
 	padding: 20px;
 	background: #FFFFFF;
 	border: 1px solid #DEDEDE;
@@ -25,11 +25,13 @@
 		color: #8E8E8E;
 	}
 	&__options {
-		// display: flex;
-		// justify-content: center;
-		// align-items: center;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 45px;
+		padding-bottom: 15px;
 	}
-	&__amount {
+	&__price {
 		font-weight: 300;
 		font-size: 24px;
 		line-height: 28px;
@@ -54,14 +56,32 @@
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;
 			border-right: none;
+			transition: .3s ease;
+			transition-property: background, color;
+			&:focus {
+				border-right: none;
+			}
+			&:hover {
+				background: #E2E2E2;
+			}
 		}
 		&--plus {
 			cursor: pointer;
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
 			border-left: none;
+			transition:.3s ease;
+			transition-property: background,
+			color;
+			&:focus {
+				border-left: none;
+			}
+			&:hover {
+				background: #E2E2E2;
+			}
 		}
 		&--input {
+			text-align: center;
 			width: 40px;
 			border-bottom-left-radius: 0;
 			border-top-left-radius: 0;
@@ -69,6 +89,10 @@
 			border-top-right-radius: 0;
 			border-left: none;
 			border-right: none;
+			&:focus {
+				border-left: none;
+				border-right: none;
+			}
 		}
 	}
 }

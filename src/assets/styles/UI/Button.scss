@@ -15,6 +15,12 @@
 			line-height: 19px;
 			letter-spacing: 1px;
 			color: #FFFFFF;
+			transition: 0.3s ease;
+			transition-property: background, transform;
+			&:hover {
+				background: #323939;
+				transform: scale(1.05)
+			}
 		}
 	}
 	&--text {

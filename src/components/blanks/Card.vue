@@ -6,10 +6,13 @@
 		p.__name Классический ролл лосось
 		p.__info 6 шт. / 205г.
 		.__options
-			button.__button.--minus —
-			input.__button.--input
-			button.__button.--plus +
-			span.__amount 265 ₽
+			.__amount
+				button.__button.--minus —
+				input.__button.--input(
+					value = "1"
+				)
+				button.__button.--plus +
+			span.__price 265 ₽
 		button-component.__button.--full(
 			text = "normal"
 			size = "small"
