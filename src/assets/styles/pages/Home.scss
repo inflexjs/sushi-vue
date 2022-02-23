@@ -1,0 +1,28 @@
+.home {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	&__products {
+		min-width: 820px;
+		display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 35px;
+		grid-row-gap: 35px;
+	}
+	&__card {
+		width: 250px;
+		min-height: 380px;
+		background: #FFFFFF;
+		border: 1px solid #DEDEDE;
+		box-shadow: 0px 5px 8px rgba(82, 82, 82, 0.05);
+		border-radius: 4px;
+	}
+	&__basket {
+		min-width: 380px;
+		min-height: 467px;
+		background: #FFFFFF;
+		border: 1px solid #DEDEDE;
+		box-shadow: 0px 5px 8px rgba(82, 82, 82, 0.05);
+		border-radius: 4px;
+	}
+}

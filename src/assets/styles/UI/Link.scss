@@ -1,0 +1,28 @@
+.link {
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 17px;
+	text-transform: uppercase;
+	color: #202525;
+	cursor: pointer;
+	position: relative;
+	&::before {
+		content: "";
+		position: absolute;
+		opacity: 0;
+		left: 50%;
+		bottom: -10px;
+		width: 110%;
+		height: 2px;
+		background-color: #E5E7EF;
+		transform: translate(-50%);
+		transition: 0.3s ease;
+		transition-property: opacity, bottom;
+	}
+	&:hover {
+		&::before {
+			bottom: -5px;
+			opacity: 1;
+		}
+	}
+}

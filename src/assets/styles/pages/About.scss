@@ -1,0 +1,33 @@
+.about {
+	display: flex;
+	justify-content: space-between;
+  align-items: center;
+	&__left {
+		max-width: 508px;
+	}
+	&__title {
+		font-weight: 500;
+		font-size: 35px;
+	}
+	&__text {
+		padding: 25px 0;
+		font-size: 16px;
+		line-height: 28px;
+		color: #5A5A5A;
+	}
+	&__contact {
+		display: flex;
+    align-items: center;
+		span {
+			padding: 0 17px;
+			font-size: 12px;
+			line-height: 14px;
+			color: #131414;
+		}
+	}
+	&__right {
+		display: flex;
+    justify-content: center;
+    align-items: center;
+	}
+}
