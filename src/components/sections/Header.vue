@@ -6,29 +6,23 @@
 					src = "@/assets/images/utility/logo.svg"
 				)
 				h1 sushi.like
-			nav.b-nav.__nav
-				ul.__list
-					li.__item(
-						v-for = "route in routes"
-					) 
-						link-component.link.__link(
-							:href = "route.path"
-						) {{route.meta.title}}
+			nav-component(
+				:routes = "routes"
+			)
 </template>
 
 <script>
-import Link from '@/components/UI/Link.vue'
+import Nav from '@/components/blanks/Nav.vue'
 import { routes } from '@/router'
 
 export default {
 	data() {
 		return {
-			routes: routes,
-			navigation: ['Главная', 'О нас','Cвязь']
+			routes: routes
 		}
 	},
 	components: {
-		'link-component': Link
+		'nav-component': Nav
 	}
 }
 </script>
