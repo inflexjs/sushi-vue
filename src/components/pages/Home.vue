@@ -2,11 +2,31 @@
 	section.b-home
 		.__products
 			card-component
-		.__basket
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+			card-component
+		basket-component
 </template>
 
 <script>
 import Card from '@/components/blanks/Card.vue'
+import Basket from '@/components/blanks/Basket.vue'
 
 export default {
 	data() {
@@ -14,7 +34,8 @@ export default {
 		}
 	},
 	components: {
-		'card-component': Card
+		'card-component': Card,
+		'basket-component': Basket
 	}
 }
 </script>

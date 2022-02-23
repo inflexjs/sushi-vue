@@ -5,12 +5,14 @@
 			p.__text {{aboutText}}
 			.__contact
 				button-component.__order(
+					tag = "router-link"
 					text = "upper"
 					size = "medium"
+					:href = "routes[0].path"
 				) Заказать
 				span или
 				link-component.__send(
-					tag = "a"
+					:href = "routes[2].path"
 				) Написать 🠖
 		.__right
 			img.__image(
@@ -22,9 +24,12 @@
 import Button from '@/components/UI/Button.vue'
 import Link from '@/components/UI/Link.vue'
 
+import { routes } from '@/router'
+
 export default {
 	data() {
 		return {
+			routes: routes,
 			aboutText: 'Мы знаем о суши все, включая то, что обычно нравится людям, поэтому мы специально сократили меню, чтобы вам было проще сделать выбор. Все, что вы выберете - вам понравится. Еда должна быть не только вкусной, но и красивой. Поэтому мы уделяем большое внимание сервировке блюд, тому в каком виде она попадет на ваш стол.'
 		}
 	},
@@ -34,7 +39,3 @@ export default {
 	}
 }
 </script>
-
-<style lang='scss'>
-
-</style>

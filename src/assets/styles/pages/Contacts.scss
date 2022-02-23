@@ -1,0 +1,23 @@
+.contacts {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	&__title {
+		font-weight: 500;
+		font-size: 35px;
+		line-height: 46px;
+		color: #202525;
+		margin-bottom: 8px;
+	}
+	&__text {
+		font-size: 15px;
+		line-height: 28px;
+		color: #5A5A5A;
+		margin-bottom: 32px;
+	}
+	&__right {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

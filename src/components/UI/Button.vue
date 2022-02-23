@@ -2,6 +2,7 @@
 	component.b-button(
 		:is = "tag"
 		:class="classes"
+		v-bind = "options"
 		v-on:click = "$emit('click')"
 	)
 		.__icon(
@@ -30,6 +31,7 @@
 				type: String
 			},
 			icon: String,
+			href: String
 		},
 		data() {
 			return {
@@ -47,6 +49,16 @@
 				]
 				return classes;
 			},
+			options() {
+				return {
+					...this.tag === 'a' && {
+						href:this.href
+					},
+					...this.tag === 'router-link' && {
+						to:this.href
+					}
+				}
+			}
 		}
 	}
 </script>
