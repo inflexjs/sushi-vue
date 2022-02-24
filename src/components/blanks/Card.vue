@@ -8,6 +8,7 @@
 		.__options
 			counter-component(
 				v-model = "countModel"
+				@keyDown = "$emit('add')"
 			)
 			span.__price {{price}} ₽
 		button-component.__button.--full(
@@ -15,6 +16,7 @@
 			text = "normal"
 			size = "small"
 			@click = "$emit('add')"
+			
 		) В корзину
 </template>
 
