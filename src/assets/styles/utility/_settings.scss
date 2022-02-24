@@ -53,8 +53,13 @@ button {
 .main {
 	min-height: 100vh;
 	padding-top: 112px;
-	padding-bottom: 112px;
+	padding-bottom: 50px;
 	display: flex;
   flex-direction: column;
-  justify-content: center;
+	justify-content: center;
+	&--align {
+		&-top{
+			justify-content: flex-start;
+		}
+	}
 }

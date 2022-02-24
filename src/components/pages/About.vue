@@ -8,11 +8,11 @@
 					tag = "router-link"
 					text = "upper"
 					size = "medium"
-					:href = "routes[0].path"
+					href = "/"
 				) Заказать
 				span или
 				link-component.__send(
-					:href = "routes[2].path"
+					href = "/contacts"
 				) Написать 🠖
 		.__right
 			img.__image(

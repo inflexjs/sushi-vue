@@ -1,4 +1,4 @@
-<template functional lang="pug">
+<template lang="pug">
 	main.b-main
 		.container.__container
 			slot

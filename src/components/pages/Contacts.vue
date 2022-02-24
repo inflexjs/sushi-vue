@@ -21,7 +21,7 @@ export default {
 	},
 	components: {
 		'form-component': Form,
-		'button-component': Button
+		'button-component': Button,
 	}
 }
 </script>

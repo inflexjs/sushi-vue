@@ -1,0 +1,25 @@
+.input {
+	background: #FFFFFF;
+	border: 1px solid #A2A2A2;
+	box-sizing: border-box;
+	border-radius: 4px;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 17px;
+	color: #202525;
+	padding: 14px 12px;
+	outline:0;
+	&::placeholder {
+		font-weight: 500;
+		font-size: 14px;
+		line-height: 17px;
+		color: #A0A0A0;
+		text-transform: uppercase;
+	}
+	 &:focus {
+		border: 1px solid #375A64;
+	}
+	&:hover {
+		border: 1px solid #375A64;
+	}
+}

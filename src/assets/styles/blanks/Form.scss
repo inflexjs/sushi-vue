@@ -1,0 +1,18 @@
+.form {
+	display: grid;
+  grid-template-columns: repeat(2, 1fr);
+	grid-gap: 20px;
+	&__mail {
+		grid-column-start: 1;
+    grid-column-end: 3;
+	}
+	&__topic {
+		grid-column-start: 1;
+    grid-column-end: 3;
+	}
+	&__message {
+		grid-column-start: 1;
+    grid-column-end: 3;
+		height: 200px;
+	}
+}

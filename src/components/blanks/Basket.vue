@@ -3,9 +3,19 @@
 		.__top
 			h3.__title Ваш заказ
 		.__main
-			card-component(
-				v-if = "basketList.length"
+			template(
+				v-if = "list.length"
 			)
+				basket-card-component(
+					v-for = "product in list"
+					:title = "product.title"
+					:information = "product.information"
+					:count = "product.count"
+					:price = "product.price"
+					:key = "product.id"
+					@remove = "$emit('remove', product.id)"
+					@changeCount = "$emit('changeCount', {id: product.id, count: $event})"
+				)
 			.__empty(
 				v-else
 			)
@@ -16,11 +26,11 @@
 		.__footer
 			.__info
 				h3.__title Доставка: 
-				span.__delivery бесплатно
+					span {{deliveryText}}
 				p.__delivery-info Бесплатно при заказе от 600 ₽
 			.__amount
 				h3.__title Итого:
-				span 750 ₽
+				span {{sum}} ₽
 			button-component.__button.--full(
 				text = "normal"
 				size = "medium"
@@ -29,16 +39,32 @@
 
 <script>
 import Card from '@/components/blanks/Card.vue'
+import BasketCard from '@/components/blanks/BasketCard.vue'
 import Button from '@/components/UI/Button.vue'
 
 export default {
+	props: {
+		list: Array
+	},
 	data() {
 		return {
-			basketList: []
+			freeDelivery: 600,
+			deliveryPrice: 300
+		}
+	},
+	computed: {
+		deliveryText() {
+			return this.sum >= this.freeDelivery ? 'Бесплатно':this.deliveryPrice
+		},
+		sum() {
+			return this.list.reduce((total, product) => {
+				return total + product.price * product.count
+			}, 0)
 		}
 	},
 	components: {
 		'card-component': Card,
+		'basket-card-component': BasketCard,
 		'button-component': Button
 	}
 }

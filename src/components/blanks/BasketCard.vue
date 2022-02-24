@@ -1,25 +1,23 @@
 <template lang="pug">
-	.b-card
+	.b-basket-card
 		img.__image(
 			src = "@/assets/images/utility/sushi.svg"
 		)
-		p.__name {{title}}
-		p.__info {{information}}
-		.__options
-			counter-component(
-				v-model = "countModel"
-			)
-			span.__price {{price}} ₽
-		button-component.__button.--full(
-			v-if = "showButton"
-			text = "normal"
-			size = "small"
-			@click = "$emit('add')"
-		) В корзину
+		.__main
+			.__top
+				p.__name {{title}}
+				p.__info {{information}}
+			.__footer
+				counter-component(
+					v-model = "countModel"
+				)
+				span.__price {{sum}} ₽
+				button.__button(
+					@click = "$emit('remove')"
+				) x
 </template>
 
 <script>
-import Button from '@/components/UI/Button.vue'
 import Counter from '@/components/blanks/Counter.vue'
 
 export default {
@@ -27,11 +25,7 @@ export default {
 		title: String,
 		information: String,
 		count: Number,
-		price: Number,
-		showButton: {
-			default: true,
-			type: Boolean
-		}
+		price: Number
 	},
 	data() {
 		return {
@@ -40,7 +34,11 @@ export default {
 	},
 	methods: {
 	},
+
 	computed: {
+		sum() {
+			return this.price * this.count
+		},
 		countModel: {
 			get: function() {
 				return this.count
@@ -51,7 +49,6 @@ export default {
 		}
 	},
 	components: {
-		'button-component': Button,
 		'counter-component': Counter
 	}
 }
