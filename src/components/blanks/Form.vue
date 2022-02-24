@@ -2,13 +2,22 @@
 	form.b-form(
 		method = "post"
 	)
-		input-component.__name(
-			plaseholder = "hello"
+		.__wrapper
+			input-component.__input.--half(
+				placeholder = "Имя"
+			)
+			input-component.__input.--half(
+				placeholder = "Телефон"
+			)
+		input-component.__input(
+			placeholder = "Почта"
 		)
-		input-component.__phone
-		input-component.__mail
-		input-component.__topic
-		input-component.__message
+		input-component.__input(
+			placeholder = "Тема"
+		)
+		input-component.__input.--message(
+			placeholder = "Сообщение"
+		)
 		button-component.__button(
 			text = "normal"
 			size = "medium"
