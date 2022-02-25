@@ -2,25 +2,24 @@
 	.b-form
 		.__wrapper
 			input-component.__input.--half(
-				placeholder = "Имя"
-				v-model = "name.value"
+				v-model = "fields.name.value"
+				:placeholder = "fields.name.placeholder"
 			)
 			input-component.__input.--half(
-				placeholder = "Телефон"
-				v-model = "phone"
+				v-model = "fields.phone.value"
+				:placeholder = "fields.phone.placeholder"
 			)
 		input-component.__input(
-			placeholder = "Почта"
-			v-model = "mail"
+			v-model = "fields.mail.value"
+			:placeholder = "fields.mail.placeholder"
 		)
 		input-component.__input(
-			placeholder = "Тема"
-			v-model = "subject"
+			v-model = "fields.subject.value"
+			:placeholder = "fields.subject.placeholder"
 		)
 		textarea.__message(
-			placeholder = "Сообщение"
-			:value = "message"
-			v-on:input = "onMessage"
+			:placeholder = "fields.message.placeholder"
+			v-model = "fields.message.value"
 		)
 		button-component.__button(
 			text = "normal"
@@ -37,45 +36,58 @@ import Button from '@/components/UI/Button.vue'
 export default {
 	data() {
 		return {
-			name: {
-				value: '',
-				error: false,
-				placeholder: 'Имя'
+			fields: {
+				name: {
+					value: '',
+					error: false,
+					placeholder: 'Имя'
+				},
+				phone:{
+					value: '',
+					error: false,
+					placeholder: 'Телефон'
+				},
+				mail: {
+					value: '',
+					error: false,
+					placeholder: 'Почта'
+				},
+				subject: {
+					value: '',
+					error: false,
+					placeholder: 'Тема'
+				},
+				message: {
+					value: '',
+					error: false,
+					placeholder: 'Сообщение'
+				},
 			},
-			phone: '',
-			mail: '',
-			subject: '',
-			message: ''
+			userInfo: {}
 		}
 	},
 	methods: {
 		send() {
 			if (this.validate()){
-				const data = {
-					name: this.name.toLowerCase(),
-					phone: this.phone,
-					mail: this.mail,
-					subject: this.subject,
-					message: this.message
-				}
-				console.log(data);
+				this.userInfo = Object.keys(this.fields).reduce((total, fieldName) => {
+					return {
+						...total,
+						[fieldName]:this.fields[fieldName].value
+					}
+				}, {})
+				console.log(this.userInfo);
 				this.clear()
 				this.$emit('send')
 			}
-		},
-		onMessage() {
-			this.message = event.target.value
 		},
 		validate() {
 
 			return true
 		},
 		clear() {
-			this.name = '',
-			this.phone = '',
-			this.mail = '',
-			this.subject = '',
-			this.message = ''
+			for (let key in this.fields) {
+				this.fields[key].value = ""
+			}
 		}
 	},
 	components: {

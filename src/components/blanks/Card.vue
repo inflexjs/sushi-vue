@@ -1,7 +1,7 @@
 <template lang="pug">
 	.b-card
 		img.__image(
-			:src = "image"
+			:src = "image ? image : 'none.jpg'"
 		)
 		p.__name {{title}}
 		p.__info {{information}}

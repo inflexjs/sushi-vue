@@ -39,7 +39,7 @@ export default {
 				this.isOpen = true
 				this.loadingAnimation = setTimeout(() => {
 					this.loading = !this.loading
-				}, 5000)
+				}, 1000)
 				console.log(this.loadingAnimation, "loading");
 			}
 		},

@@ -1,8 +1,10 @@
 .basket-card {
 	display: flex;
-	margin: 40px 0;
 	margin-right: 15px;
 	position: relative;
+	&+&{
+		padding-top: 20px;
+	}
 	&__image {
 		width: 117px;
 		height: 97px;
