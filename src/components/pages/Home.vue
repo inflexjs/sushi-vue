@@ -16,6 +16,8 @@
 			:list = "basket"
 			@changeCount = "changeBasketCount"
 			@remove = "removeFromBasket"
+			v-on:mouseover = "$emit('mouseover')"
+			v-on:mouseleave = "$emit('mouseleave')"
 		)
 </template>
 
@@ -24,6 +26,8 @@ import Card from '@/components/blanks/Card.vue'
 import Basket from '@/components/blanks/Basket.vue'
 
 export default {
+	props: {
+	},
 	data() {
 		return {
 			basket: [],
@@ -127,7 +131,7 @@ export default {
 		changeBasketCount({id, count}) {
 			const product = this.basket.find(product => product.id === id)
 			product.count = count
-		}
+		},
 	},
 	components: {
 		'card-component': Card,

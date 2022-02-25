@@ -2,7 +2,10 @@
 	.b-basket
 		.__top
 			h3.__title Ваш заказ
-		.__main
+		.__main(
+			v-on:mouseover = "$emit('mouseover')"
+			v-on:mouseleave = "$emit('mouseleave')"
+		)
 			template(
 				v-if = "list.length"
 			)
@@ -50,7 +53,7 @@ export default {
 	data() {
 		return {
 			freeDelivery: 600,
-			deliveryPrice: 300
+			deliveryPrice: 300,
 		}
 	},
 	computed: {
@@ -62,6 +65,8 @@ export default {
 				return total + product.price * product.count
 			}, 0)
 		}
+	},
+	methods: {
 	},
 	components: {
 		'card-component': Card,
