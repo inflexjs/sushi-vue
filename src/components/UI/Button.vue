@@ -31,7 +31,8 @@
 				type: String
 			},
 			icon: String,
-			href: String
+			href: String,
+			type: String
 		},
 		data() {
 			return {
@@ -56,7 +57,8 @@
 					},
 					...this.tag === 'router-link' && {
 						to:this.href
-					}
+					},
+					type: this.type
 				}
 			}
 		}

@@ -7,6 +7,7 @@
 				:information = "product.information"
 				:count = "product.count"
 				:price = "product.price"
+				:image = "product.image"
 				:key = "product.id"
 				@changeCount = "changeCount($event, product.id)"
 				@add = "addToBasket(product.id)"
@@ -32,42 +33,48 @@ export default {
 					title: 'Классический ролл лосось',
 					information: '6 шт. / 205г.',
 					count: 1,
-					price: 240
+					price: 240,
+					image: 'sushi1.png'
 				},
 				{
 					id: 2,
 					title: 'Ролл Филадельфия спешл',
 					information: '8 шт. / 190г.',
 					count: 1,
-					price: 225
+					price: 225,
+					image: 'sushi2.png'
 				},
 				{
 					id: 3,
 					title: 'Запеченный ролл Киото',
 					information: '8 шт. / 260г.',
 					count: 1,
-					price: 387
+					price: 387,
+					image: 'sushi3.png'
 				},
 				{
 					id: 4,
 					title: 'Ролл Шиитаке сыр',
 					information: '8 шт. / 190г.',
 					count: 1,
-					price: 149
+					price: 149,
+					image: 'sushi4.png'
 				},
 				{
 					id: 5,
 					title: 'Ролл Саваяки',
 					information: '6 шт. / 200г.',
 					count: 1,
-					price: 160
+					price: 160,
+					image: 'sushi5.png'
 				},
 				{
 					id: 6,
 					title: 'Тартар ролл Огненный тунец',
 					information: '8 шт. / 210г.',
 					count: 1,
-					price: 245
+					price: 245,
+					image: 'sushi6.png'
 				},
 				{
 					id: 7,
@@ -101,7 +108,11 @@ export default {
 			if (!isAlreadyInBasket) {
 				this.basket.push({...product})
 			} else {
-				basketProduct.count = basketProduct.count + product.count
+				if (basketProduct.count + product.count < 10) {
+					basketProduct.count = basketProduct.count + product.count
+				} else {
+					basketProduct.count = 10
+				}
 			}
 			product.count = 1
 		},

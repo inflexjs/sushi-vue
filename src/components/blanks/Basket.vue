@@ -12,6 +12,7 @@
 					:information = "product.information"
 					:count = "product.count"
 					:price = "product.price"
+					:image = "product.image"
 					:key = "product.id"
 					@remove = "$emit('remove', product.id)"
 					@changeCount = "$emit('changeCount', {id: product.id, count: $event})"

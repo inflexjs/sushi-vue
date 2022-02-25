@@ -1,7 +1,7 @@
 <template lang="pug">
 	.b-basket-card
 		img.__image(
-			src = "@/assets/images/utility/sushi.svg"
+			:src = "image"
 		)
 		.__main
 			.__top
@@ -25,7 +25,11 @@ export default {
 		title: String,
 		information: String,
 		count: Number,
-		price: Number
+		price: Number,
+		image: {
+			default: 'none.jpg',
+			type: String
+		},
 	},
 	data() {
 		return {

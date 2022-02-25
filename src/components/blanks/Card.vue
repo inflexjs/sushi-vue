@@ -1,7 +1,7 @@
 <template lang="pug">
 	.b-card
 		img.__image(
-			src = "@/assets/images/utility/sushi.svg"
+			:src = "image"
 		)
 		p.__name {{title}}
 		p.__info {{information}}
@@ -30,6 +30,10 @@ export default {
 		information: String,
 		count: Number,
 		price: Number,
+		image: {
+			default: 'none.jpg',
+			type: String
+		},
 		showButton: {
 			default: true,
 			type: Boolean

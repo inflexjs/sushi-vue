@@ -39,12 +39,10 @@ export default {
 				this.setInputRefValue(e.target.value.replace(/\D/g, ""))	
 		},
 		setInputRefValue(value){
-				requestAnimationFrame(() => {
-						this.$refs.input.value = value
-				})
-		
+			requestAnimationFrame(() => {
+				this.$refs.input.value = value
+			})
 		},
-
 		emitValue(newValue){
 			let emitValue = newValue
 
