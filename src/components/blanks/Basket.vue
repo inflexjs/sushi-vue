@@ -7,18 +7,18 @@
 			v-on:mouseleave = "$emit('mouseleave')"
 		)
 			template(
-				v-if = "list.length"
+				v-if = "basket.length"
 			)
 				basket-card-component(
-					v-for = "product in list"
+					v-for = "product in basket"
 					:title = "product.title"
 					:information = "product.information"
 					:count = "product.count"
 					:price = "product.price"
 					:image = "product.image"
 					:key = "product.id"
-					@remove = "$emit('remove', product.id)"
-					@changeCount = "$emit('changeCount', {id: product.id, count: $event})"
+					@remove = "remove(product.id)"
+					@changeCount = "changeCount({count: $event, id: product.id})"
 				)
 			.__empty(
 				v-else
@@ -46,9 +46,10 @@ import Card from '@/components/blanks/Card.vue'
 import BasketCard from '@/components/blanks/BasketCard.vue'
 import Button from '@/components/UI/Button.vue'
 
+import { mapGetters, mapActions } from "vuex";
+
 export default {
 	props: {
-		list: Array
 	},
 	data() {
 		return {
@@ -56,17 +57,24 @@ export default {
 			deliveryPrice: 300,
 		}
 	},
+	methods: {
+		...mapActions({
+			remove: "basketModule/remove",
+			changeCount: "basketModule/changeCount",
+		})
+	},
 	computed: {
+		...mapGetters({
+			basket: "basketModule/basket"
+		}),
 		deliveryText() {
 			return this.sum >= this.freeDelivery ? 'Бесплатно':this.deliveryPrice
 		},
 		sum() {
-			return this.list.reduce((total, product) => {
+			return this.basket.reduce((total, product) => {
 				return total + product.price * product.count
 			}, 0)
 		}
-	},
-	methods: {
 	},
 	components: {
 		'card-component': Card,
