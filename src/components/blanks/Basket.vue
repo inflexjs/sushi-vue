@@ -53,7 +53,7 @@ export default {
 	},
 	data() {
 		return {
-			freeDelivery: 600,
+			freeDelivery: 300,
 			deliveryPrice: 300,
 		}
 	},
@@ -68,7 +68,7 @@ export default {
 			basket: "basketModule/basket"
 		}),
 		deliveryText() {
-			return this.sum >= this.freeDelivery ? 'Бесплатно':this.deliveryPrice
+			return this.sum >= this.freeDelivery ? 'Бесплатно':`${this.deliveryPrice}$`
 		},
 		sum() {
 			return this.basket.reduce((total, product) => {
