@@ -2,13 +2,18 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
+	flex-direction: column;
 	position: relative;
 	&__products {
-		min-width: 820px;
+		max-width: 820px;
 		display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 35px;
 		grid-row-gap: 35px;
 		align-items: start;
+	}
+	&__tabs {
+		grid-column-start: 1;
+    grid-column-end: 4;
 	}
 }

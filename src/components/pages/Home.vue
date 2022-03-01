@@ -1,8 +1,19 @@
 <template lang="pug">
 	section.b-home
 		.__products
+			tabs-component.__tabs(
+				v-model = "currentCategory"
+				:list = "categories"
+			)
+			template(
+				v-if = "!products.length"
+			)
+				skeleton-card-component(
+					v-for = "_ in 9"
+				)
 			card-component(
-				v-for = "product in products"
+				v-for = "product in sortProducts"
+				v-else
 				:title = "product.title"
 				:information = "product.information"
 				:count = "product.count"
@@ -19,11 +30,20 @@
 <script>
 import Card from '@/components/blanks/Card.vue'
 import Basket from '@/components/blanks/Basket.vue'
+import Tabs from '@/components/blanks/Tabs.vue'
+import SkeletonCard from '@/components/blanks/SkeletonCard.vue'
 
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-	mounted() {
+	data() {
+		return {
+			currentCategory: 0
+		}
+	},
+	async created() {
+		this.$store.dispatch('productsModule/fetchProducts')
+
 	},
 	methods: {
 		...mapActions({
@@ -34,11 +54,17 @@ export default {
 	computed: {
 		...mapGetters({
 			products: "productsModule/products",
-		})
+			categories: "productsModule/categories",
+		}),
+		sortProducts() {
+			return this.currentCategory ? this.products.filter(product => product.category.id === this.currentCategory) : this.products
+		}
 	},
 	components: {
 		'card-component': Card,
-		'basket-component': Basket
+		'basket-component': Basket,
+		'tabs-component': Tabs,
+		'skeleton-card-component': SkeletonCard
 	}
 }
 </script>

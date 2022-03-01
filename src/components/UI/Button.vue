@@ -23,7 +23,7 @@
 				type: String
 			},
 			text: {
-				default: '',
+				default: 'normal',
 				type: String
 			},
 			size: {
