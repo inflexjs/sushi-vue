@@ -1,29 +1,31 @@
 <template lang="pug">
 	section.b-home
 		.__products
-			tabs-component.__tabs(
-				v-model = "currentCategory"
-				:list = "categories"
-			)
 			template(
 				v-if = "!products.length"
 			)
 				skeleton-card-component(
-					v-for = "_ in 9"
+					v-for = "_ in 6"
 				)
-			card-component(
-				v-for = "product in sortProducts"
+		
+			template(
 				v-else
-				:title = "product.title"
-				:information = "product.information"
-				:count = "product.count"
-				:price = "product.price"
-				:image = "product.image"
-				:key = "product.id"
-				@changeCount = "changeCount({count: $event, id: product.id})"
-				@add = "add(product.id)"
-
 			)
+				tabs-component.__tabs(
+					v-model = "currentCategory"
+					:list = "categories"
+				)
+				card-component(
+					v-for = "product in sortProducts"
+					:title = "product.title"
+					:information = "product.information"
+					:count = "product.count"
+					:price = "product.price"
+					:image = "product.image"
+					:key = "product.id"
+					@changeCount = "changeCount({count: $event, id: product.id})"
+					@add = "add(product.id)"
+				)
 		basket-component
 </template>
 
@@ -32,6 +34,7 @@ import Card from '@/components/blanks/Card.vue'
 import Basket from '@/components/blanks/Basket.vue'
 import Tabs from '@/components/blanks/Tabs.vue'
 import SkeletonCard from '@/components/blanks/SkeletonCard.vue'
+import SkeletonTabs from '@/components/blanks/SkeletonTabs.vue'
 
 import { mapGetters, mapActions } from "vuex";
 
@@ -64,7 +67,8 @@ export default {
 		'card-component': Card,
 		'basket-component': Basket,
 		'tabs-component': Tabs,
-		'skeleton-card-component': SkeletonCard
+		'skeleton-card-component': SkeletonCard,
+		'skeleton-tabs-component': SkeletonTabs
 	}
 }
 </script>
