@@ -31,10 +31,10 @@
 			.__info
 				h3.__title Доставка: 
 					span {{deliveryText}}
-				p.__delivery-info Бесплатно при заказе от 600 ₽
+				p.__delivery-info Бесплатно при заказе от 300 $
 			.__amount
 				h3.__title Итого:
-				span {{sum}} ₽
+				span {{sum}} $
 			button-component.__button.--full(
 				text = "normal"
 				size = "medium"

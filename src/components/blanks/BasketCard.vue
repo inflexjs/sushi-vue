@@ -11,7 +11,7 @@
 				counter-component(
 					v-model = "countModel"
 				)
-				span.__price {{sum}} ₽
+				span.__price {{sum}} $
 				button.__button(
 					@click = "$emit('remove')"
 				) x
