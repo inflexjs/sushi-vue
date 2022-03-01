@@ -10,7 +10,7 @@
 				v-model = "countModel"
 				@keyDown = "$emit('add')"
 			)
-			span.__price {{price}} ₽
+			span.__price {{price}} $
 		button-component.__button.--full(
 			v-if = "showButton"
 			text = "normal"
