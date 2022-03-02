@@ -3,12 +3,13 @@ import VueRouter from 'vue-router'
 import Home from '@/components/pages/Home'
 import About from '@/components/pages/About'
 import Contacts from '@/components/pages/Contacts'
+import Order from '@/components/pages/Order'
 
 Vue.use(VueRouter)
 
 export const routes = [
   {
-    path: '/',
+    path: '//',
     name: 'home',
     component: Home,
     meta: {
@@ -30,6 +31,14 @@ export const routes = [
     meta: {
       title: 'Связь'
     }
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: Order,
+    // meta: {
+    //   title: 'Корзина'
+    // }
   }
 
   // {

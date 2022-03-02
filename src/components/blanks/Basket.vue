@@ -38,6 +38,8 @@
 			button-component.__button.--full(
 				text = "normal"
 				size = "medium"
+				tag = "router-link"
+				:href = "basket.length ? '/order': ''"
 			) Заказать
 </template>
 
@@ -73,7 +75,7 @@ export default {
 		sum() {
 			return this.basket.reduce((total, product) => {
 				return total + product.price * product.count
-			}, 0)
+			}, 0).toFixed(2)
 		}
 	},
 	components: {

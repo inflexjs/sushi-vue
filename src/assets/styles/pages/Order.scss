@@ -1,0 +1,32 @@
+.order {
+	display: flex;
+	position: relative;
+	justify-content: space-between;
+	align-items: flex-start;
+	&__wrapper {
+		width: 820px;
+	}
+	&__title {
+		position: sticky;
+    top: 112px;
+		z-index: 4;
+		font-weight: 500;
+		font-size: 35px;
+    background-color: #FAFAFA;
+		padding-bottom: 20px;
+	}
+	&__list {
+		height: 1000px;
+		background-color: #6d6d6d;
+	}
+	&__pay {
+		position: sticky;
+		top: 112px;
+		height: 700px;
+		width: 380px;
+		background: #FFFFFF;
+		border: 1px solid #DEDEDE;
+		box-shadow: 0px 5px 8px rgba(82, 82, 82, 0.05);
+		border-radius: 4px;
+	}
+}

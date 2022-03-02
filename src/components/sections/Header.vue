@@ -1,7 +1,9 @@
 <template lang="pug">
 	header.b-header
 		.container.__container
-			.logo.__logo
+			link-component.logo.__logo(
+				href = "/"
+			)
 				img(
 					src = "@/assets/images/utility/logo.svg"
 				)
@@ -13,6 +15,8 @@
 
 <script>
 import Nav from '@/components/blanks/Nav.vue'
+import Link from '@/components/UI/Link.vue'
+
 import { routes } from '@/router'
 
 export default {
@@ -22,7 +26,8 @@ export default {
 		}
 	},
 	components: {
-		'nav-component': Nav
+		'nav-component': Nav,
+		'link-component': Link
 	}
 }
 </script>

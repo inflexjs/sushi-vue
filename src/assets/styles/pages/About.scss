@@ -1,7 +1,9 @@
 .about {
 	display: flex;
 	justify-content: space-between;
-  align-items: center;
+	align-items: center;
+	min-height: calc(100vh - 112px);
+	padding-bottom: 50px;
 	&__left {
 		max-width: 508px;
 	}

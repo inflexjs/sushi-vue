@@ -1,13 +1,12 @@
 <template lang="pug">
 	section.b-home
-		.__products
+		.__wrapper
 			template(
-				v-if = "!products.length"
-			)
-				skeleton-card-component(
-					v-for = "_ in 6"
+					v-if = "!products.length"
 				)
-		
+					skeleton-tab-component(
+						v-for = "_ in 4"
+					)
 			template(
 				v-else
 			)
@@ -15,17 +14,27 @@
 					v-model = "currentCategory"
 					:list = "categories"
 				)
-				card-component(
-					v-for = "product in sortProducts"
-					:title = "product.title"
-					:information = "product.information"
-					:count = "product.count"
-					:price = "product.price"
-					:image = "product.image"
-					:key = "product.id"
-					@changeCount = "changeCount({count: $event, id: product.id})"
-					@add = "add(product.id)"
+			.__products
+				template(
+					v-if = "!products.length"
 				)
+					skeleton-card-component(
+						v-for = "_ in 9"
+					)
+				template(
+					v-else
+				)
+					card-component(
+						v-for = "product in sortProducts"
+						:title = "product.title"
+						:information = "product.information"
+						:count = "product.count"
+						:price = "product.price"
+						:image = "product.image"
+						:key = "product.id"
+						@changeCount = "changeCount({count: $event, id: product.id})"
+						@add = "add(product.id)"
+					)
 		basket-component
 </template>
 
@@ -68,7 +77,7 @@ export default {
 		'basket-component': Basket,
 		'tabs-component': Tabs,
 		'skeleton-card-component': SkeletonCard,
-		'skeleton-tabs-component': SkeletonTabs
+		'skeleton-tab-component': SkeletonTabs
 	}
 }
 </script>

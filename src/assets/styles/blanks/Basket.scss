@@ -1,6 +1,6 @@
 .basket {
-	position: fixed;
-	right: 328px;
+	position: sticky;
+  top: 112px;
 	max-height: 700px;
 	width: 380px;
 	padding: 20px;
@@ -107,6 +107,8 @@
 	&__button {
 		&--full {
 			width: 100%;
+			display: block;
+			text-align: center;
 		}
 	}
 }

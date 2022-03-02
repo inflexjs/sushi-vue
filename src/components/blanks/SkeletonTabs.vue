@@ -1,5 +1,5 @@
 <template lang="pug">
-	img.b-skeleton(
+	img.b-skeleton.--tab(
 		src = "skeleton-tab.svg"
 	)
 </template>

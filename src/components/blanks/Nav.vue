@@ -1,8 +1,8 @@
 <template lang="pug">
-	nav.b-nav.__nav
+	nav.b-nav.header__nav
 		ul.__list
 			li.__item(
-				v-for = "route in routes"
+				v-for = "route in filterRoutes"
 			) 
 				link-component.link.__link(
 					:href = "route.path"
@@ -11,6 +11,7 @@
 
 <script>
 import Link from '@/components/UI/Link.vue'
+// import routes from '@/router/index.js'
 
 export default {
 	props: {
@@ -18,6 +19,14 @@ export default {
 	},
 	data() {
 		return {
+		}
+	},
+	methods: {
+
+	},
+	computed: {
+		filterRoutes() {
+			return this.$router.getRoutes().filter(route => route?.meta?.title)
 		}
 	},
 	components: {
