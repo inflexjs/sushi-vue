@@ -27,5 +27,8 @@
 			text-transform: uppercase;
 			color: #202525;
 		}
+		&:hover::before {
+			display: none;
+		}
 	}
 }

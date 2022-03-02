@@ -24,9 +24,40 @@
 		top: 112px;
 		height: 700px;
 		width: 380px;
+		padding: 20px;
 		background: #FFFFFF;
 		border: 1px solid #DEDEDE;
 		box-shadow: 0px 5px 8px rgba(82, 82, 82, 0.05);
 		border-radius: 4px;
+		&-main {
+			padding: 20px 0;
+			position: relative;
+			&::after,
+			&::before {
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				height: 1px;
+				background-color: #E0E0E0;
+			}
+			&::after {
+				top: 0;
+			}
+			&::before {
+				bottom: 0;
+			}
+		}
+	}
+	&__privacy {
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 140%;
+		margin-bottom: 20px;
+		padding: 0 5px;
+	}
+	&__button {
+		width: 100%;
+		margin-bottom: 6px;
 	}
 }

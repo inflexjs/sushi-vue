@@ -36,6 +36,7 @@
 				h3.__title Итого:
 				span {{sum}} $
 			button-component.__button.--full(
+				v-show = "basket.length"
 				text = "normal"
 				size = "medium"
 				tag = "router-link"

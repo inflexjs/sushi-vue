@@ -4,7 +4,7 @@
 			template(
 					v-if = "!products.length"
 				)
-					skeleton-tab-component(
+					skeleton-tab-component.__tabs(
 						v-for = "_ in 4"
 					)
 			template(
