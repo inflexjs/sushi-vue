@@ -3,6 +3,7 @@
 	position: relative;
 	justify-content: space-between;
 	align-items: flex-start;
+	padding-bottom: 40px;
 	&__wrapper {
 		width: 820px;
 	}
@@ -13,22 +14,59 @@
 		font-weight: 500;
 		font-size: 35px;
     background-color: #FAFAFA;
-		padding-bottom: 20px;
+		margin: 0 -3px;
+    padding: 0 3px;
+    padding-bottom: 20px;
 	}
-	&__list {
-		height: 1000px;
-		background-color: #6d6d6d;
+	&__subtitle {
+		font-weight: 400;
+		font-size: 21px;
+		line-height: 140%;
+		margin-bottom: 20px;
 	}
+	&__user-information,
+	&__products,
+	&__paymethod,
+	&__delivery,
 	&__pay {
-		position: sticky;
-		top: 112px;
-		height: 700px;
-		width: 380px;
 		padding: 20px;
 		background: #FFFFFF;
 		border: 1px solid #DEDEDE;
 		box-shadow: 0px 5px 8px rgba(82, 82, 82, 0.05);
 		border-radius: 4px;
+	}
+	&__user-information,
+	&__products,
+	&__paymethod {
+		margin-bottom: 30px;
+	}
+	&__user-information {
+		&-wrapper {
+			display: flex;
+			justify-content: space-between;
+			padding-top: 20px;
+		}
+	}
+	&__input {
+		&--full {
+			width: 100%;
+		}
+		&--half {
+			width: calc(50% - 10px);
+		}
+	}
+	&__button {
+		padding-left: 40px !important; 
+		padding-right: 40px !important;
+		&+&{
+			margin-left: 10px;
+		}
+	}
+	&__pay {
+		position: sticky;
+		top: 112px;
+		width: 380px;
+		padding: 20px;
 		&-main {
 			padding: 20px 0;
 			position: relative;
@@ -48,6 +86,38 @@
 				bottom: 0;
 			}
 		}
+		&-wrapper {
+			padding-top: 20px;
+			font-size: 16px;
+			span,
+			b {
+				width: 50%;
+				display: inline-block;
+				text-align: right;
+			}
+			b {
+				font-weight: 500;
+				line-height: 24px;
+				letter-spacing: 0.5px;
+			}
+		}
+		&-text {
+			display: inline-block;
+			width: 50%;
+		}
+		&-subtitle {
+			width: 50%;
+			display: inline-block;
+			font-weight: 500;
+			font-size: 18px;
+			line-height: 24px;
+			letter-spacing: 0.5px;
+			color: #202525;
+		}
+		&-button {
+			width: 100%;
+			margin-bottom: 6px;
+		}
 	}
 	&__privacy {
 		font-weight: 300;
@@ -56,8 +126,22 @@
 		margin-bottom: 20px;
 		padding: 0 5px;
 	}
-	&__button {
-		width: 100%;
-		margin-bottom: 6px;
+	&__description {
+		padding-top: 20px;
+		font-weight: 300;
+		max-width: 560px;
+		font-size: 14px;
+		line-height: 140%;
+		color: #828282;
+	}
+	&__empty {
+		font-weight: 400;
+		font-size: 18px;
+		color: #828282;
+	}
+	&__radio {
+		&:not(:last-child) {
+			margin-bottom: 20px;
+		}
 	}
 }

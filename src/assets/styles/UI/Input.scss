@@ -22,4 +22,12 @@
 	&:hover {
 		border: 1px solid #375A64;
 	}
+	&.is-error {
+		border-color: #ee1d1d;
+		border: 1px solid rgb(243, 22, 22);
+		color: #ee1d1d;
+		&::placeholder {
+			color: #ee1d1d;
+		}
+	}
 }

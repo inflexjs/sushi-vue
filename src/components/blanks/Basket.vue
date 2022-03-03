@@ -31,16 +31,16 @@
 			.__info
 				h3.__title Доставка: 
 					span {{deliveryText}}
-				p.__delivery-info Бесплатно при заказе от 300 $
+				p.__delivery-info Бесплатно при заказе от 200 $
 			.__amount
 				h3.__title Итого:
-				span {{sum}} $
+				span {{sumCheckout}} $
 			button-component.__button.--full(
 				v-show = "basket.length"
 				text = "normal"
 				size = "medium"
 				tag = "router-link"
-				:href = "basket.length ? '/order': ''"
+				:href = "basket.length ? '/order' : ''"
 			) Заказать
 </template>
 
@@ -56,8 +56,6 @@ export default {
 	},
 	data() {
 		return {
-			freeDelivery: 300,
-			deliveryPrice: 300,
 		}
 	},
 	methods: {
@@ -68,16 +66,10 @@ export default {
 	},
 	computed: {
 		...mapGetters({
-			basket: "basketModule/basket"
-		}),
-		deliveryText() {
-			return this.sum >= this.freeDelivery ? 'Бесплатно':`${this.deliveryPrice}$`
-		},
-		sum() {
-			return this.basket.reduce((total, product) => {
-				return total + product.price * product.count
-			}, 0).toFixed(2)
-		}
+			basket: "basketModule/basket",
+			deliveryText: "basketModule/deliveryText",
+			sumCheckout: "basketModule/sumCheckout",
+		})
 	},
 	components: {
 		'card-component': Card,

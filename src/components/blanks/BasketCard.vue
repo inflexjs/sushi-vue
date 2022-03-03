@@ -41,7 +41,7 @@ export default {
 
 	computed: {
 		sum() {
-			return this.price * this.count
+			return (this.price * this.count).toFixed(2)
 		},
 		countModel: {
 			get: function() {
