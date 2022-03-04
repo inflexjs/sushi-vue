@@ -13,7 +13,8 @@
 			.__products
 				h3.__subtitle(
 					:class = "classes"
-				) Ваши товары
+				) Ваши товары 
+					sup {{totalCount}}
 				template(
 					v-if = "basket.length"
 				)
