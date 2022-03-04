@@ -22,6 +22,9 @@ const actions = {
 	changeCount({ commit }, { id, count }) {
 		commit('changeCount', { id, count })
 	},
+	clearBasket({state, commit}, payload){
+		commit('clearBasket', payload)
+	}
 }
 
 export default actions

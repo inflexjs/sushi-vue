@@ -4,22 +4,27 @@
 			input-component.__input.--half(
 				v-model = "fields.name.value"
 				:placeholder = "fields.name.placeholder"
+				:error.sync = "fields.name.error"
 			)
 			input-component.__input.--half(
 				v-model = "fields.phone.value"
 				:placeholder = "fields.phone.placeholder"
+				:error.sync = "fields.phone.error"
 			)
 		input-component.__input(
 			v-model = "fields.mail.value"
 			:placeholder = "fields.mail.placeholder"
+			:error.sync = "fields.mail.error"
 		)
 		input-component.__input(
 			v-model = "fields.subject.value"
 			:placeholder = "fields.subject.placeholder"
+			:error.sync = "fields.subject.error"
 		)
-		textarea.__message(
+		input-component.__message(
 			:placeholder = "fields.message.placeholder"
 			v-model = "fields.message.value"
+			:error.sync = "fields.message.error"
 		)
 		button-component.__button(
 			text = "normal"
@@ -40,27 +45,32 @@ export default {
 				name: {
 					value: '',
 					error: false,
-					placeholder: 'Имя'
+					placeholder: 'Имя',
+					regExp: /[a-z0-9_-]{10,}$/
 				},
 				phone:{
 					value: '',
 					error: false,
-					placeholder: 'Телефон'
+					placeholder: 'Телефон',
+					regExp: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
 				},
 				mail: {
 					value: '',
 					error: false,
-					placeholder: 'Почта'
+					placeholder: 'Почта',
+					regExp: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 				},
 				subject: {
 					value: '',
 					error: false,
-					placeholder: 'Тема'
+					placeholder: 'Тема',
+					regExp: /[a-z0-9_-]{10,}$/
 				},
 				message: {
 					value: '',
 					error: false,
-					placeholder: 'Сообщение'
+					placeholder: 'Сообщение',
+					regExp: /[a-z0-9_-]{20,}$/
 				},
 			},
 			userInfo: {}
@@ -68,7 +78,8 @@ export default {
 	},
 	methods: {
 		send() {
-			if (this.validate()){
+			this.validate()
+			if (this.isValid){
 				this.userInfo = Object.keys(this.fields).reduce((total, fieldName) => {
 					return {
 						...total,
@@ -80,15 +91,24 @@ export default {
 				this.$emit('send')
 			}
 		},
-		validate() {
-
-			return true
+		validate(){
+			Object.keys(this.fields).forEach(field => {
+				if (this.fields[field].regExp) {
+					const isValid = this.fields[field].value.match(this.fields[field].regExp) && this.fields[field].value.match(this.fields[field].regExp).length
+					this.fields[field].error = !isValid
+				}
+			})	
 		},
 		clear() {
 			for (let key in this.fields) {
 				this.fields[key].value = ""
 			}
 		}
+	},
+	computed: {
+		isValid() {
+			return !Object.keys(this.fields).some(field => this.fields[field].error)
+		},
 	},
 	components: {
 		'input-component': Input,

@@ -1,7 +1,9 @@
 <template lang="pug">
-	img.b-skeleton.--tab(
-		src = "skeleton-tab.svg"
-	)
+	.b-skeleton.--tab
+		img.__image(
+			v-for = "_ in 4"
+			src = "skeleton-tab.svg"
+		)
 </template>
 
 <script>

@@ -12,6 +12,9 @@ const mutations = {
 		const product = state.basket.find(product => product.id === id)
 		product.count = count
 	},
+	clearBasket(state, payload){
+		state.basket = []
+	}
 }
 
 export default mutations

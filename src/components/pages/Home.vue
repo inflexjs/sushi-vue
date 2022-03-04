@@ -2,11 +2,9 @@
 	section.b-home
 		.__wrapper
 			template(
-					v-if = "!products.length"
-				)
-					skeleton-tab-component.__tabs(
-						v-for = "_ in 4"
-					)
+				v-if = "!products.length"
+			)
+				skeleton-tab-component.__tabs
 			template(
 				v-else
 			)

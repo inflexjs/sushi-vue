@@ -1,9 +1,14 @@
 .skeleton {
-	animation: blink 3s ease-in-out infinite;
 	&--tab {
 		padding-bottom: 20px;
 		&+&{
 			margin-left: 10px;
+		}
+	}
+	&__image {
+		animation: blink 3s ease-in-out infinite;
+		&+&{
+			padding-left: 10px;
 		}
 	}
 }

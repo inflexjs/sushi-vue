@@ -4,6 +4,9 @@
 			v-if = "isOpen"
 			:loading = "loading"
 			@click = "showModal"
+			image = "email.svg"
+			message = "Мы вышлем вам ответное письмо на электронную почту."
+			title = "Спасибо за обращение!"
 		)
 		.__left
 			h2.__title Напиши нам
@@ -40,12 +43,10 @@ export default {
 				this.loadingAnimation = setTimeout(() => {
 					this.loading = !this.loading
 				}, 1000)
-				console.log(this.loadingAnimation, "loading");
 			}
 		},
 	},
 	beforeDestroy() {
-		console.log('destroy loading');
 		clearTimeout(this.loadingAnimation)
 	},
 	components: {

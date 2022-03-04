@@ -1,5 +1,13 @@
 <template lang="pug">
 	section.b-order
+		modal-component(
+			v-if = "isOrdered"
+			:loading = "loading"
+			image = "thanks.svg"
+			title = "Спасибо за заказ!"
+			message = "Ваш заказ принят в обработку "
+			@click = "closeModal"
+		)
 		.__wrapper
 			h2.__title Оформление заказа
 			.__products
@@ -58,7 +66,7 @@
 				button-component.__button(
 					v-for = "button in fields.delivery.list"
 					:view = "button.id === fields.delivery.value ? 'primary' : 'secondary'"
-					@click = "click(button)"
+					@click = "changeDeliveryOption(button.id)"
 				) {{button.name}}
 				p.__description После оплаты Вам будет предоствлен персональный QR код- пропус для получения вашего товара
 		.__pay
@@ -66,7 +74,7 @@
 				button-component.__pay-button(
 					text = "normal"
 					size = "big"
-					@click = "checkout"
+					@click = "checkout"			
 				) Оплатить
 				p.__privacy Нажимая на кнопку, вы соглашаетесь с Условиями обработки перс. данных
 			.__pay-main
@@ -88,22 +96,48 @@
 import Button from '@/components/UI/Button.vue'
 import Link from '@/components/UI/Link.vue'
 import BasketCard from '@/components/blanks/BasketCard.vue'
+import Modal from '@/components/blanks/Modal.vue'
 import Input from '@/components/UI/Input.vue'
 import Radio from '@/components/UI/Radio.vue'
 
 import api from "@/api"
 import { mapGetters, mapActions } from "vuex";
+import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 
 export default {
 	data() {
 		return {
+			loadingAnimation: null,
+			redirectTimer: null,
+			redirect: false,
+			isOrdered: false,
+			loading: true,
 			freeDelivery: 300,
-			fields: {
+			fields: this.createFields()
+		}
+	},
+	created(){
+		
+	},
+	beforeDestroy() {
+		console.log(this.loadingAnimation, 'loading animation');
+		clearTimeout(this.loadingAnimation)
+		console.log(this.redirectTimer, 'redirect timer');
+		clearTimeout(this.redirectTimer)
+	},
+	methods: {
+		...mapActions({
+			remove: "basketModule/remove",
+			changeCount: "basketModule/changeCount",
+			clearBasket: "basketModule/clearBasket"
+		}),
+		createFields() {
+			return {
 				name: {
 					value: '',
 					error: false,
 					placeholder: 'Введите ФИО',
-					regExp: /[a-z0-9_-]{10,}$/
+					regExp: /[a-zа-я0-9_-]{10,}$/
 				},
 				phone:{
 					value: '',
@@ -163,20 +197,12 @@ export default {
 					]
 				}
 			}
-		}
-	},
-	created(){
-		
-	},
-	methods: {
-		...mapActions({
-			remove: "basketModule/remove",
-			changeCount: "basketModule/changeCount",
-		}),
+		},
 		checkout(){
 			this.validate()
 			if (this.isValid && this.basket.length) {
 				api.checkout(this.checkoutData)
+				this.showModal()
 			}
 		},
 		validate(){
@@ -187,9 +213,29 @@ export default {
 				}
 			})	
 		},
-		click(button) {
-			this.fields.delivery.value = button.id
-		}
+		changeDeliveryOption(id) {
+			this.fields.delivery.value = id
+		},
+		showModal(){
+			this.isOrdered = true
+			this.loadingAnimation = setTimeout(() => {
+				this.loading = !this.loading
+				this.clearBasket()
+				this.clear()
+			}, 2000)
+			this.redirectTimer = setTimeout(() => {
+				this.$router.push('/')
+			}, 5000);
+		},
+		closeModal(){
+				this.isOrdered = false
+				this.loading = true
+				this.redirect = false
+				clearTimeout(this.redirectTimer)
+		},
+		clear() {
+			this.fields = this.createFields()
+		},
 	},
 	computed: {
 		...mapGetters({
@@ -224,7 +270,8 @@ export default {
 		'basket-card-component': BasketCard,
 		'link-component': Link,
 		'input-component': Input,
-		'radio-component': Radio
+		'radio-component': Radio,
+		'modal-component': Modal
 	}
 }
 </script>
