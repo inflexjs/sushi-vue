@@ -7,7 +7,7 @@
 				img(
 					src = "@/assets/images/utility/logo.svg"
 				)
-				h1 sushi.like
+				h1 example.shop
 			nav-component(
 				:routes = "routes"
 			)
