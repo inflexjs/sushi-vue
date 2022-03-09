@@ -25,27 +25,27 @@ export default class Counter extends Vue{
 	max = 10
 	min = 1
 
-	changeCount(sign, e) {
+	changeCount(sign: 'minus' | 'plus') {
 		const newValue = sign === 'minus' ? this.value - 1 : this.value + 1
 	
 		this.emitValue(newValue)
 	}
 
-	onChange(e){
-		this.emitValue(Number(e.target.value))
+	onChange(event: Event){
+		this.emitValue(Number((event.target as HTMLInputElement).value))
 	}
 
-	onInput(e){
-			this.setInputRefValue(e.target.value.replace(/\D/g, ""))	
+	onInput(event: Event){
+			this.setInputRefValue((event.target as HTMLInputElement).value.replace(/\D/g, ""))	
 	}
 
-	setInputRefValue(value){
+	setInputRefValue(value: string){
 		requestAnimationFrame(() => {
 			this.refInput.value = value
 		})
 	}
 	
-	emitValue(newValue){
+	emitValue(newValue: number){
 		let emitValue = newValue
 
 		if (newValue > this.max) {
@@ -55,7 +55,7 @@ export default class Counter extends Vue{
 		}
 
 		this.$emit('input', emitValue)
-		this.setInputRefValue(emitValue)
+		this.setInputRefValue(emitValue.toString())
 	}
 }
 </script>

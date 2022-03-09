@@ -66,6 +66,7 @@
 				h3.__subtitle Cпособ получения
 				button-component.__button(
 					v-for = "button in fields.delivery.list"
+					:key = "button.id"
 					:view = "button.id === fields.delivery.value ? 'primary' : 'secondary'"
 					@click = "changeDeliveryOption(button.id)"
 				) {{button.name}}
@@ -96,6 +97,7 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from '@/decorators'
+import { FormField } from '@/components/blanks/Form.vue'
 
 import Button from '@/components/UI/Button.vue'
 import Link from '@/components/UI/Link.vue'
@@ -105,6 +107,7 @@ import Input from '@/components/UI/Input.vue'
 import Radio from '@/components/UI/Radio.vue'
 
 import api from "@/api"
+
 
 @Component({
 	components: {
@@ -118,15 +121,15 @@ import api from "@/api"
 })
 export default class Order extends Vue{
 
-	loadingAnimation = null
-	redirectTimer = null
+	loadingAnimation = {} as ReturnType<typeof setTimeout>
+	redirectTimer = {} as ReturnType<typeof setTimeout>
 	redirect: boolean = false
 	isOrdered: boolean = false
 	loading: boolean = true
 	freeDelivery: number = 300
 	fields = this.createFields()
 
-	createFields() {
+	createFields(): Record<string, FormField> {
 		return {
 			name: {
 				value: '',
@@ -205,7 +208,7 @@ export default class Order extends Vue{
 	validate(){
 		Object.keys(this.fields).forEach(field => {
 			if (this.fields[field].regExp) {
-				const isValid = this.fields[field].value.match(this.fields[field].regExp) && this.fields[field].value.match(this.fields[field].regExp).length
+				const isValid = this.fields[field].value.toString().match(this.fields[field].regExp!) && this.fields[field].value.toString().match(this.fields[field].regExp!)?.length
 				this.fields[field].error = !isValid
 			}
 		})	

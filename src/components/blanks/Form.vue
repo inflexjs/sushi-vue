@@ -40,6 +40,15 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import Input from '@/components/UI/Input.vue'
 import Button from '@/components/UI/Button.vue'
 
+export type FormField = {
+	name?: string
+	value: string | number,
+	error?: boolean,
+	placeholder?: string,
+	regExp?: RegExp
+	list?: {id: number, name: string}[]
+}
+
 @Component({
 	components: {
 		'input-component': Input,
@@ -47,7 +56,7 @@ import Button from '@/components/UI/Button.vue'
 	}
 })
 export default class Form extends Vue{
-	fields = {
+	fields: Record<string, FormField> = {
 		name: {
 			value: '',
 			error: false,
@@ -99,7 +108,7 @@ export default class Form extends Vue{
 	validate(){
 		Object.keys(this.fields).forEach(field => {
 			if (this.fields[field].regExp) {
-				const isValid = this.fields[field].value.match(this.fields[field].regExp) && this.fields[field].value.match(this.fields[field].regExp).length
+				const isValid = this.fields[field].value.toString().match(this.fields[field].regExp!) && this.fields[field].value.toString().match(this.fields[field].regExp!)?.length
 				this.fields[field].error = !isValid
 			}
 		})	

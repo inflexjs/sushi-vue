@@ -1,13 +1,14 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '@/components/pages/Home'
-import About from '@/components/pages/About'
-import Contacts from '@/components/pages/Contacts'
-import Order from '@/components/pages/Order'
+import VueRouter, { RouteConfig } from 'vue-router'
+import Home from '@/components/pages/Home.vue'
+import About from '@/components/pages/About.vue'
+import Contacts from '@/components/pages/Contacts.vue'
+import Order from '@/components/pages/Order.vue'
 
 Vue.use(VueRouter)
 
-export const routes = [
+
+export const routes: RouteConfig[] = [
   {
     path: '//',
     name: 'home',

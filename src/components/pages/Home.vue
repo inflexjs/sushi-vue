@@ -17,7 +17,8 @@
 					v-if = "!products.length"
 				)
 					skeleton-card-component(
-						v-for = "_ in 9"
+						v-for = "(_,index) in 9"
+						:key = "index"
 					)
 				template(
 					v-else

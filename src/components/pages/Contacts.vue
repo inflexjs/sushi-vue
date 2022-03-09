@@ -37,7 +37,7 @@ import Modal from '@/components/blanks/Modal.vue'
 export default class Contacts extends Vue{
 	isOpen = false
 	loading = true
-	loadingAnimation = null
+	loadingAnimation = {} as ReturnType<typeof setTimeout>
 
 	showModal() {
 		if (this.isOpen) {
