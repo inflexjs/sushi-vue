@@ -11,56 +11,38 @@
 		slot
 </template>
 
-<script>
-	export default {
-		props: {
-			tag: {
-				default: "button",
-				type: String
-			},
-			view: {
-				default: 'primary',
-				type: String
-			},
-			text: {
-				default: 'normal',
-				type: String
-			},
-			size: {
-				default: 'small',
-				type: String
-			},
-			icon: String,
-			href: String,
-			type: String
-		},
-		data() {
-			return {
-			}
-		},
-		methods: {
+<script lang='ts'>
+import {Component, Vue, Prop} from 'vue-property-decorator'
 
-		},
-		computed: {
-			classes(){
-				const classes = [
-					`button--view-${this.view}`,
-					`button--text-${this.text}`,
-					`button--size-${this.size}`,
-				]
-				return classes;
+@Component
+export default class Button extends Vue{
+	@Prop({default: 'button'}) tag!: string
+	@Prop({default: 'primary'}) view!: string
+	@Prop({default: 'normal'}) text!: string
+	@Prop({default: 'small'}) size!: string
+	@Prop() icon!: string
+	@Prop() href!: string
+	@Prop() type!: string
+
+	get classes(){
+		const classes = [
+			`button--view-${this.view}`,
+			`button--text-${this.text}`,
+			`button--size-${this.size}`,
+		]
+		return classes;
+	}
+
+	get options() {
+		return {
+			...this.tag === 'a' && {
+				href:this.href
 			},
-			options() {
-				return {
-					...this.tag === 'a' && {
-						href:this.href
-					},
-					...this.tag === 'router-link' && {
-						to:this.href
-					},
-					type: this.type
-				}
-			}
+			...this.tag === 'router-link' && {
+				to:this.href
+			},
+			type: this.type
 		}
 	}
+}
 </script>

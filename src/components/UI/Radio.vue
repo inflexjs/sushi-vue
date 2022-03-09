@@ -14,21 +14,13 @@
 				.__name {{item.name}}
 </template>
 
-<script>
-export default {
-	props: {
-		list: {
-			required: true,
-			type: Array
-		},
-		value: {
-			requered: true,
-			type: Number
-		},
-		name: {
-			required: true,
-			type: String
-		}
-	}
+<script lang='ts'>
+import {Component, Vue, Prop} from 'vue-property-decorator'
+
+@Component
+export default class Radio extends Vue{
+	@Prop({required: true}) list!: {id: number, name: string}[]
+	@Prop({required: true}) value!: number
+	@Prop({required: true}) name!: string
 }
 </script>

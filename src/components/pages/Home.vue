@@ -36,40 +36,18 @@
 		basket-component
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue } from 'vue-property-decorator';
+import { Getter, Action } from '@/decorators'
+
 import Card from '@/components/blanks/Card.vue'
 import Basket from '@/components/blanks/Basket.vue'
 import Tabs from '@/components/blanks/Tabs.vue'
 import SkeletonCard from '@/components/blanks/SkeletonCard.vue'
 import SkeletonTabs from '@/components/blanks/SkeletonTabs.vue'
 
-import { mapGetters, mapActions } from "vuex";
 
-export default {
-	data() {
-		return {
-			currentCategory: 0
-		}
-	},
-	async created() {
-		this.$store.dispatch('productsModule/fetchProducts')
-
-	},
-	methods: {
-		...mapActions({
-			add: "basketModule/add",
-			changeCount: "productsModule/changeCount",
-		})
-	},
-	computed: {
-		...mapGetters({
-			products: "productsModule/products",
-			categories: "productsModule/categories",
-		}),
-		sortProducts() {
-			return this.currentCategory ? this.products.filter(product => product.category.id === this.currentCategory) : this.products
-		}
-	},
+@Component({
 	components: {
 		'card-component': Card,
 		'basket-component': Basket,
@@ -77,5 +55,22 @@ export default {
 		'skeleton-card-component': SkeletonCard,
 		'skeleton-tab-component': SkeletonTabs
 	}
+})
+export default class Home extends Vue{
+	currentCategory = 0
+
+	async created() {
+		this.$store.dispatch('productsModule/fetchProducts')
+
+	}
+
+	get sortProducts() {
+		return this.currentCategory ? this.products.filter(product => product.category.id === this.currentCategory) : this.products
+	}
+
+	@Action('basketModule/add') add!: number
+	@Action('productsModule/changeCount') changeCount!: number
+	@Getter('productsModule/products') products!: any[]
+	@Getter('productsModule/categories') categories!: any[]
 }
 </script>

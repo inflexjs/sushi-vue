@@ -21,32 +21,26 @@
 			) x
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 
-export default {
-	props: {
-		loading: Boolean,
-		title: String,
-		message: String,
-		image: String
-	},
+@Component
+export default class Modal extends Vue{
+	@Prop() loading!: boolean
+	@Prop() title!: string
+	@Prop() message!: string
+	@Prop() image!: string
+
 	mounted() {
 		disablePageScroll()
-	},
+	}
 	beforeDestroy(){
 		enablePageScroll()
-	},
-	data() {
-		return {
-		}
-	},
-	methods: {
-	},
-	computed: {
-		setImage() {
-			return `images/${this.image}`
-		}
+	}
+
+	get	setImage() {
+		return `images/${this.image}`
 	}
 }
 </script>

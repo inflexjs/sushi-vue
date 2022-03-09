@@ -17,43 +17,34 @@
 				) x
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue, Prop, ModelSync } from 'vue-property-decorator';
 import Counter from '@/components/blanks/Counter.vue'
 
-export default {
-	props: {
-		title: String,
-		information: String,
-		count: Number,
-		price: Number,
-		image: {
-			default: 'none.jpg',
-			type: String
-		},
-	},
-	data() {
-		return {
-		
-		}
-	},
-	methods: {
-	},
-
-	computed: {
-		sum() {
-			return (this.price * this.count).toFixed(2)
-		},
-		countModel: {
-			get: function() {
-				return this.count
-			},
-			set: function(value) {
-				this.$emit('changeCount', value)	
-			}
-		}
-	},
+@Component({
 	components: {
 		'counter-component': Counter
 	}
+})
+export default class BasketCard extends Vue{
+	@Prop() title!: string
+	@Prop() information!: string
+	@Prop() price!: number
+	@Prop({default: 'none.jpg'}) image!: string
+
+	@ModelSync('count', 'changeCount') countModel!: number
+
+	get sum() {
+		return (this.price * this.countModel).toFixed(2)
+	}
+
+	// countModel: {
+	// 	get: function() {
+	// 		return this.count
+	// 	},
+	// 	set: function(value) {
+	// 		this.$emit('changeCount', value)	
+	// 	}
+	// }
 }
 </script>

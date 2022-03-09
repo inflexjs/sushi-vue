@@ -20,22 +20,22 @@
 			)
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue } from 'vue-property-decorator';
+
 import Button from '@/components/UI/Button.vue'
 import Link from '@/components/UI/Link.vue'
 
 import { routes } from '@/router'
 
-export default {
-	data() {
-		return {
-			routes: routes,
-			aboutText: 'Мы знаем о суши все, включая то, что обычно нравится людям, поэтому мы специально сократили меню, чтобы вам было проще сделать выбор. Все, что вы выберете - вам понравится. Еда должна быть не только вкусной, но и красивой. Поэтому мы уделяем большое внимание сервировке блюд, тому в каком виде она попадет на ваш стол.'
-		}
-	},
+@Component({
 	components: {
 		'button-component': Button,
 		'link-component': Link
 	}
+})
+export default class About extends Vue{
+	routes = routes
+	aboutText = 'Мы знаем о суши все, включая то, что обычно нравится людям, поэтому мы специально сократили меню, чтобы вам было проще сделать выбор. Все, что вы выберете - вам понравится. Еда должна быть не только вкусной, но и красивой. Поэтому мы уделяем большое внимание сервировке блюд, тому в каком виде она попадет на ваш стол.'
 }
 </script>

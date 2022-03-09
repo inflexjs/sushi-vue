@@ -20,45 +20,25 @@
 		) В корзину
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue, Prop, ModelSync } from 'vue-property-decorator';
+
 import Button from '@/components/UI/Button.vue'
 import Counter from '@/components/blanks/Counter.vue'
 
-export default {
-	props: {
-		title: String,
-		information: String,
-		count: Number,
-		price: Number,
-		image: {
-			default: 'none.jpg',
-			type: String
-		},
-		showButton: {
-			default: true,
-			type: Boolean
-		}
-	},
-	data() {
-		return {
-		
-		}
-	},
-	methods: {
-	},
-	computed: {
-		countModel: {
-			get: function() {
-				return this.count
-			},
-			set: function(value) {
-				this.$emit('changeCount', value)	
-			}
-		}
-	},
+@Component({
 	components: {
 		'button-component': Button,
 		'counter-component': Counter
 	}
+})
+export default class Card extends Vue{
+	@Prop() title!: string
+	@Prop() information!: string
+	@Prop() price!: number
+	@Prop({default: 'none.jpg'}) image!: string
+	@Prop({default: true}) showButton!: boolean
+
+	@ModelSync('count', 'changeCount') countModel!: number
 }
 </script>

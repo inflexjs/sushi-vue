@@ -9,28 +9,20 @@
 				) {{route.meta.title}}
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import Link from '@/components/UI/Link.vue'
-// import routes from '@/router/index.js'
 
-export default {
-	props: {
-		routes: ""
-	},
-	data() {
-		return {
-		}
-	},
-	methods: {
-
-	},
-	computed: {
-		filterRoutes() {
-			return this.$router.getRoutes().filter(route => route?.meta?.title)
-		}
-	},
+@Component({
 	components: {
 		'link-component': Link
+	}
+})
+export default class Nav extends Vue{
+	@Prop({default: ''}) routes!: string
+
+	get filterRoutes() {
+		return this.$router.getRoutes().filter(route => route?.meta?.title)
 	}
 }
 </script>

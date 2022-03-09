@@ -14,20 +14,20 @@
 </template>
 
 <script>
+import {Component, Vue, Prop} from 'vue-property-decorator'
+
 import Nav from '@/components/blanks/Nav.vue'
 import Link from '@/components/UI/Link.vue'
 
 import { routes } from '@/router'
 
-export default {
-	data() {
-		return {
-			routes: routes
-		}
-	},
+@Component({
 	components: {
 		'nav-component': Nav,
 		'link-component': Link
 	}
+})
+export default class Header extends Vue{
+	routes = routes
 }
 </script>

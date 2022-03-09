@@ -20,39 +20,39 @@
 			)
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue } from 'vue-property-decorator';
+
 import Button from '@/components/UI/Button.vue'
 import Form from '@/components/blanks/Form.vue'
 import Modal from '@/components/blanks/Modal.vue'
 
-export default {
-	data() {
-		return {
-			isOpen: false,
-			loading: true,
-			loadingAnimation: null
-		}
-	},
-	methods: {
-		showModal() {
-			if (this.isOpen) {
-				this.isOpen = false
-				this.loading = true
-			} else {
-				this.isOpen = true
-				this.loadingAnimation = setTimeout(() => {
-					this.loading = !this.loading
-				}, 1000)
-			}
-		},
-	},
-	beforeDestroy() {
-		clearTimeout(this.loadingAnimation)
-	},
+@Component({
 	components: {
 		'form-component': Form,
 		'button-component': Button,
 		'modal-component': Modal
+	}
+})
+export default class Contacts extends Vue{
+	isOpen = false
+	loading = true
+	loadingAnimation = null
+
+	showModal() {
+		if (this.isOpen) {
+			this.isOpen = false
+			this.loading = true
+		} else {
+			this.isOpen = true
+			this.loadingAnimation = setTimeout(() => {
+				this.loading = !this.loading
+			}, 1000)
+		}
+	}
+
+	beforeDestroy() {
+		clearTimeout(this.loadingAnimation)
 	}
 }
 </script>

@@ -9,20 +9,17 @@
 		) {{tab.name}}
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import Button from '@/components/UI/Button.vue'
 
-import { mapGetters } from "vuex";
-
-export default {
-	props: {
-		list: Array,
-		value: Number
-	},
-	computed: {
-	},
+@Component({
 	components: {
 		'button-component': Button
 	}
+})
+export default class Tabs extends Vue{
+	@Prop() list!: Array<any>
+	@Prop() value!: number
 }
 </script>

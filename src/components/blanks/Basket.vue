@@ -44,37 +44,27 @@
 			) Заказать
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue } from 'vue-property-decorator';
+import { Getter, Action } from '@/decorators'
+
 import Card from '@/components/blanks/Card.vue'
 import BasketCard from '@/components/blanks/BasketCard.vue'
 import Button from '@/components/UI/Button.vue'
 
-import { mapGetters, mapActions } from "vuex";
-
-export default {
-	props: {
-	},
-	data() {
-		return {
-		}
-	},
-	methods: {
-		...mapActions({
-			remove: "basketModule/remove",
-			changeCount: "basketModule/changeCount",
-		})
-	},
-	computed: {
-		...mapGetters({
-			basket: "basketModule/basket",
-			deliveryText: "basketModule/deliveryText",
-			sumCheckout: "basketModule/sumCheckout",
-		})
-	},
+@Component({
 	components: {
 		'card-component': Card,
 		'basket-card-component': BasketCard,
 		'button-component': Button
 	}
+})
+export default class Basket extends Vue{
+	@Action('basketModule/remove') remove!: () => void
+	@Action('basketModule/remove') changeCount!: () => void
+
+	@Getter('basketModule/basket') basket!: Object[]
+	@Getter('basketModule/deliveryText') deliveryText!: string
+	@Getter('basketModule/sumCheckout') sumCheckout!: number
 }
 </script>

@@ -93,7 +93,10 @@
 				p.__description *Расчет суммы является предварительным
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue } from 'vue-property-decorator';
+import { Getter, Action } from '@/decorators'
+
 import Button from '@/components/UI/Button.vue'
 import Link from '@/components/UI/Link.vue'
 import BasketCard from '@/components/blanks/BasketCard.vue'
@@ -102,170 +105,8 @@ import Input from '@/components/UI/Input.vue'
 import Radio from '@/components/UI/Radio.vue'
 
 import api from "@/api"
-import { mapGetters, mapActions } from "vuex";
-import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 
-export default {
-	data() {
-		return {
-			loadingAnimation: null,
-			redirectTimer: null,
-			redirect: false,
-			isOrdered: false,
-			loading: true,
-			freeDelivery: 300,
-			fields: this.createFields()
-		}
-	},
-	created(){
-		
-	},
-	beforeDestroy() {
-		console.log(this.loadingAnimation, 'loading animation');
-		clearTimeout(this.loadingAnimation)
-		console.log(this.redirectTimer, 'redirect timer');
-		clearTimeout(this.redirectTimer)
-	},
-	methods: {
-		...mapActions({
-			remove: "basketModule/remove",
-			changeCount: "basketModule/changeCount",
-			clearBasket: "basketModule/clearBasket"
-		}),
-		createFields() {
-			return {
-				name: {
-					value: '',
-					error: false,
-					placeholder: 'Введите ФИО',
-					regExp: /[a-zа-я0-9_-]{10,}$/
-				},
-				phone:{
-					value: '',
-					error: false,
-					placeholder: 'Введите телефон',
-					regExp: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
-				},
-				mail: {
-					value: '',
-					error: false,
-					placeholder: 'Введите почту',
-					regExp: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-				},
-				userInformation: {
-					name: 'userInformation',
-					value: 1,
-					list: [
-						{
-							id: 1,
-							name: 'Физ. лицо'
-						},
-						{
-							id: 2,
-							name: 'Юр. лицо'
-						}
-					]
-				},
-				paymethod: {
-					name: 'paymethod',
-					value: 1,
-					list: [
-						{
-							id: 1,
-							name: 'Онлайн оплата'
-						},
-						{
-							id: 2,
-							name: 'Оплата наличными'
-						},{
-							id: 3,
-							name: 'Apple pay'
-						}
-					]
-				},
-				delivery: {
-					name: 'delivery',
-					value: 1,
-					list: [
-						{
-							id: 1,
-							name: 'Доставка'
-						},
-						{
-							id: 2,
-							name: 'Самовывоз'
-						}
-					]
-				}
-			}
-		},
-		checkout(){
-			this.validate()
-			if (this.isValid && this.basket.length) {
-				api.checkout(this.checkoutData)
-				this.showModal()
-			}
-		},
-		validate(){
-			Object.keys(this.fields).forEach(field => {
-				if (this.fields[field].regExp) {
-					const isValid = this.fields[field].value.match(this.fields[field].regExp) && this.fields[field].value.match(this.fields[field].regExp).length
-					this.fields[field].error = !isValid
-				}
-			})	
-		},
-		changeDeliveryOption(id) {
-			this.fields.delivery.value = id
-		},
-		showModal(){
-			this.isOrdered = true
-			this.loadingAnimation = setTimeout(() => {
-				this.loading = !this.loading
-				this.clearBasket()
-				this.clear()
-			}, 2000)
-			this.redirectTimer = setTimeout(() => {
-				this.$router.push('/')
-			}, 5000);
-		},
-		closeModal(){
-				this.isOrdered = false
-				this.loading = true
-				this.redirect = false
-				clearTimeout(this.redirectTimer)
-		},
-		clear() {
-			this.fields = this.createFields()
-		},
-	},
-	computed: {
-		...mapGetters({
-			basket: "basketModule/basket",
-			deliveryText: "basketModule/deliveryText",
-			sumProducts: "basketModule/sumProducts",
-			sumCheckout: "basketModule/sumCheckout",
-			totalCount:"basketModule/totalCount"
-		}),
-		checkoutData() {
-			return Object.keys(this.fields).reduce((total,key) => {
-				return {
-					...total,
-					[key]:this.fields[key].value
-				}
-			}, {
-				products: this.basket
-				})
-		},
-		isValid() {
-			return !Object.keys(this.fields).some(field => this.fields[field].error)
-		},
-		classes() {
-			const classes = []
-			if (!this.basket.length) {
-				classes.push('is-error')
-			}
-		}
-	},
+@Component({
 	components: {
 		'button-component': Button,
 		'basket-card-component': BasketCard,
@@ -273,6 +114,168 @@ export default {
 		'input-component': Input,
 		'radio-component': Radio,
 		'modal-component': Modal
+	}
+})
+export default class Order extends Vue{
+
+	loadingAnimation = null
+	redirectTimer = null
+	redirect: boolean = false
+	isOrdered: boolean = false
+	loading: boolean = true
+	freeDelivery: number = 300
+	fields = this.createFields()
+
+	createFields() {
+		return {
+			name: {
+				value: '',
+				error: false,
+				placeholder: 'Введите ФИО',
+				regExp: /[a-zа-я0-9_-]{10,}$/
+			},
+			phone:{
+				value: '',
+				error: false,
+				placeholder: 'Введите телефон',
+				regExp: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+			},
+			mail: {
+				value: '',
+				error: false,
+				placeholder: 'Введите почту',
+				regExp: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			},
+			userInformation: {
+				name: 'userInformation',
+				value: 1,
+				list: [
+					{
+						id: 1,
+						name: 'Физ. лицо'
+					},
+					{
+						id: 2,
+						name: 'Юр. лицо'
+					}
+				]
+			},
+			paymethod: {
+				name: 'paymethod',
+				value: 1,
+				list: [
+					{
+						id: 1,
+						name: 'Онлайн оплата'
+					},
+					{
+						id: 2,
+						name: 'Оплата наличными'
+					},{
+						id: 3,
+						name: 'Apple pay'
+					}
+				]
+			},
+			delivery: {
+				name: 'delivery',
+				value: 1,
+				list: [
+					{
+						id: 1,
+						name: 'Доставка'
+					},
+					{
+						id: 2,
+						name: 'Самовывоз'
+					}
+				]
+			}
+		}
+	}
+
+	checkout(){
+		this.validate()
+		if (this.isValid && this.basket.length) {
+			api.checkout(this.checkoutData)
+			this.showModal()
+		}
+	}
+
+	validate(){
+		Object.keys(this.fields).forEach(field => {
+			if (this.fields[field].regExp) {
+				const isValid = this.fields[field].value.match(this.fields[field].regExp) && this.fields[field].value.match(this.fields[field].regExp).length
+				this.fields[field].error = !isValid
+			}
+		})	
+	}
+
+	changeDeliveryOption(id: number) {
+		this.fields.delivery.value = id
+	}
+
+	showModal(){
+		this.isOrdered = true
+		this.loadingAnimation = setTimeout(() => {
+			this.loading = !this.loading
+			this.clearBasket()
+			this.clear()
+		}, 2000)
+		this.redirectTimer = setTimeout(() => {
+			this.$router.push('/')
+		}, 5000);
+	}
+
+	closeModal(){
+			this.isOrdered = false
+			this.loading = true
+			this.redirect = false
+			clearTimeout(this.redirectTimer)
+	}
+
+	clear() {
+		this.fields = this.createFields()
+	}
+
+	get checkoutData() {
+		return Object.keys(this.fields).reduce((total,key) => {
+			return {
+				...total,
+				[key]:this.fields[key].value
+			}
+		}, {
+			products: this.basket
+			})
+	}
+
+	get isValid() {
+		return !Object.keys(this.fields).some(field => this.fields[field].error)
+	}
+
+	get classes() {
+		const classes = []
+		if (!this.basket.length) {
+			classes.push('is-error')
+		}
+		return classes
+	}
+
+	@Action('basketModule/remove') remove!: number
+	@Action('basketModule/changeCount') changeCount!: (payload: {id: number, count: number}) => void
+	@Action('basketModule/clearBasket') clearBasket!: () => void
+
+	@Getter('basketModule/basket') basket!: Object[]
+	@Getter('basketModule/deliveryText') deliveryText!: string
+	@Getter('basketModule/sumProducts') sumProducts!: number
+	@Getter('basketModule/sumCheckout') sumCheckout!: number
+	@Getter('basketModule/totalCount') totalCount!: number
+
+	beforeDestroy() {
+		console.log(this.loadingAnimation, 'loading animation');
+		clearTimeout(this.loadingAnimation)
+		console.log(this.redirectTimer, 'redirect timer');
+		clearTimeout(this.redirectTimer)
 	}
 }
 </script>
