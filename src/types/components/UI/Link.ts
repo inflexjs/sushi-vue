@@ -1,0 +1,1 @@
+export type LinkTag = 'a' | 'router-link' | 'button'

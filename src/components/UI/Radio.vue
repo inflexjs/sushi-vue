@@ -15,12 +15,19 @@
 </template>
 
 <script lang='ts'>
-import {Component, Vue, Prop} from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { RadioItem } from '@/types/components/UI/Radio'
+
+export type IRadioProps = {
+	list: RadioItem[]
+	value: number
+	name: string
+}
 
 @Component
 export default class Radio extends Vue{
-	@Prop({required: true}) list!: {id: number, name: string}[]
-	@Prop({required: true}) value!: number
-	@Prop({required: true}) name!: string
+	@Prop({required: true}) list!: IRadioProps['list']
+	@Prop({required: true}) value!: IRadioProps['value']
+	@Prop({required: true}) name!: IRadioProps['name']
 }
 </script>

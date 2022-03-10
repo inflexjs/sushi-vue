@@ -1,0 +1,1 @@
+export type InputType = 'radio' | 'password' | 'email' | 'text'

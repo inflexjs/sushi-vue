@@ -74,9 +74,10 @@
 		.__pay
 			.__pay-top
 				button-component.__pay-button(
+					:disabled = "!basket.length"
 					text = "normal"
 					size = "big"
-					@click = "checkout"			
+					@click = "checkout"	
 				) Оплатить
 				p.__privacy Нажимая на кнопку, вы соглашаетесь с Условиями обработки перс. данных
 			.__pay-main
@@ -97,7 +98,10 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from '@/decorators'
-import { FormField } from '@/components/blanks/Form.vue'
+import { FormField } from '@/types/components/blanks/Form'
+import { BasketRemoveAction, BasketChangeCountAction, BasketClearBasketAction } from '@/store/modules/basket/actions'
+import { BasketBasketGetter, BasketDeliveryTextGetter, BasketSumProductsGetter, BasketSumCheckoutGetter, BasketTotalCountGetter } from '@/store/modules/basket/getters'
+import { validateFields, createFields, isValidFields } from '@/js/formFieldsService'
 
 import Button from '@/components/UI/Button.vue'
 import Link from '@/components/UI/Link.vue'
@@ -121,97 +125,23 @@ import api from "@/api"
 })
 export default class Order extends Vue{
 
+	fieldsNames = ['name', 'phone', 'mail', 'userInformation', 'paymethod', 'delivery']
 	loadingAnimation = {} as ReturnType<typeof setTimeout>
 	redirectTimer = {} as ReturnType<typeof setTimeout>
 	redirect: boolean = false
 	isOrdered: boolean = false
 	loading: boolean = true
 	freeDelivery: number = 300
-	fields = this.createFields()
-
-	createFields(): Record<string, FormField> {
-		return {
-			name: {
-				value: '',
-				error: false,
-				placeholder: 'Введите ФИО',
-				regExp: /[a-zа-я0-9_-]{10,}$/
-			},
-			phone:{
-				value: '',
-				error: false,
-				placeholder: 'Введите телефон',
-				regExp: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
-			},
-			mail: {
-				value: '',
-				error: false,
-				placeholder: 'Введите почту',
-				regExp: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-			},
-			userInformation: {
-				name: 'userInformation',
-				value: 1,
-				list: [
-					{
-						id: 1,
-						name: 'Физ. лицо'
-					},
-					{
-						id: 2,
-						name: 'Юр. лицо'
-					}
-				]
-			},
-			paymethod: {
-				name: 'paymethod',
-				value: 1,
-				list: [
-					{
-						id: 1,
-						name: 'Онлайн оплата'
-					},
-					{
-						id: 2,
-						name: 'Оплата наличными'
-					},{
-						id: 3,
-						name: 'Apple pay'
-					}
-				]
-			},
-			delivery: {
-				name: 'delivery',
-				value: 1,
-				list: [
-					{
-						id: 1,
-						name: 'Доставка'
-					},
-					{
-						id: 2,
-						name: 'Самовывоз'
-					}
-				]
-			}
-		}
-	}
+	fields = createFields(this.fieldsNames)
 
 	checkout(){
-		this.validate()
-		if (this.isValid && this.basket.length) {
+		validateFields(this.fields)
+		
+		if (isValidFields(this.fields) && this.basket.length) {
+			console.log();
 			api.checkout(this.checkoutData)
 			this.showModal()
 		}
-	}
-
-	validate(){
-		Object.keys(this.fields).forEach(field => {
-			if (this.fields[field].regExp) {
-				const isValid = this.fields[field].value.toString().match(this.fields[field].regExp!) && this.fields[field].value.toString().match(this.fields[field].regExp!)?.length
-				this.fields[field].error = !isValid
-			}
-		})	
 	}
 
 	changeDeliveryOption(id: number) {
@@ -238,7 +168,7 @@ export default class Order extends Vue{
 	}
 
 	clear() {
-		this.fields = this.createFields()
+		this.fields = createFields(this.fieldsNames)
 	}
 
 	get checkoutData() {
@@ -252,10 +182,6 @@ export default class Order extends Vue{
 			})
 	}
 
-	get isValid() {
-		return !Object.keys(this.fields).some(field => this.fields[field].error)
-	}
-
 	get classes() {
 		const classes = []
 		if (!this.basket.length) {
@@ -264,15 +190,15 @@ export default class Order extends Vue{
 		return classes
 	}
 
-	@Action('basketModule/remove') remove!: number
-	@Action('basketModule/changeCount') changeCount!: (payload: {id: number, count: number}) => void
-	@Action('basketModule/clearBasket') clearBasket!: () => void
+	@Action('basketModule/remove') remove!: BasketRemoveAction
+	@Action('basketModule/changeCount') changeCount!: BasketChangeCountAction
+	@Action('basketModule/clearBasket') clearBasket!: BasketClearBasketAction
 
-	@Getter('basketModule/basket') basket!: Object[]
-	@Getter('basketModule/deliveryText') deliveryText!: string
-	@Getter('basketModule/sumProducts') sumProducts!: number
-	@Getter('basketModule/sumCheckout') sumCheckout!: number
-	@Getter('basketModule/totalCount') totalCount!: number
+	@Getter('basketModule/basket') basket!: BasketBasketGetter
+	@Getter('basketModule/deliveryText') deliveryText!: BasketDeliveryTextGetter
+	@Getter('basketModule/sumProducts') sumProducts!: BasketSumProductsGetter
+	@Getter('basketModule/sumCheckout') sumCheckout!: BasketSumCheckoutGetter
+	@Getter('basketModule/totalCount') totalCount!: BasketTotalCountGetter
 
 	beforeDestroy() {
 		console.log(this.loadingAnimation, 'loading animation');

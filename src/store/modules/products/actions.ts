@@ -1,9 +1,10 @@
 import api from '@/api'
-
+import { ActionType } from '@/types/store'
 import { ActionContext } from 'vuex'
 import { StateRoot } from '@/store/index'
 import { StateProducts } from '@/store/modules/products/state'
 import { Category, CategoryName, Product } from '@/store/modules/products/state'
+import { mutationTypesProducts } from '@/store/modules/products/mutations'
 
 function getCategoryOptions(categoryName: CategoryName ): Category {
 	const mapCategoryNames = {
@@ -20,8 +21,9 @@ function getCategoryOptions(categoryName: CategoryName ): Category {
 }
 
 const changeCount = ({ commit }: ActionContext<StateProducts, StateRoot>, payload:{count: number, id: number}) => {
-	commit('changeCount', payload)
+	commit(mutationTypesProducts.CHANGE_COUNT, payload)
 }
+export type ProductsChangeCountAction = ActionType<typeof changeCount>
 
 const fetchProducts = async ({ state, dispatch }: ActionContext<StateProducts, StateRoot>) => {
 	if (!state.products.length) {
@@ -44,10 +46,12 @@ const fetchProducts = async ({ state, dispatch }: ActionContext<StateProducts, S
 		}
 	}
 }
+export type ProductsFetchProductsAction = ActionType<typeof fetchProducts>
 
 const setProducts = ({ commit }: ActionContext<StateProducts, StateRoot>, products: Product ) => {
-	commit('setProducts', products)
+	commit(mutationTypesProducts.SET_PRODUCTS, products)
 }
+export type ProductsSetProductsAction = ActionType<typeof setProducts>
 
 const actions = {
 	changeCount,

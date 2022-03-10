@@ -40,6 +40,9 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from '@/decorators'
+import { BasketAddAction } from '@/store/modules/basket/actions'
+import { ProductsChangeCountAction } from '@/store/modules/products/actions'
+import { ProductsProductsGetter, ProductsCategoriesGetter } from '@/store/modules/products/getters'
 
 import Card from '@/components/blanks/Card.vue'
 import Basket from '@/components/blanks/Basket.vue'
@@ -69,9 +72,9 @@ export default class Home extends Vue{
 		return this.currentCategory ? this.products.filter(product => product.category.id === this.currentCategory) : this.products
 	}
 
-	@Action('basketModule/add') add!: number
-	@Action('productsModule/changeCount') changeCount!: number
-	@Getter('productsModule/products') products!: any[]
-	@Getter('productsModule/categories') categories!: any[]
+	@Action('basketModule/add') add!: BasketAddAction
+	@Action('productsModule/changeCount') changeCount!: ProductsChangeCountAction
+	@Getter('productsModule/products') products!: ProductsProductsGetter
+	@Getter('productsModule/categories') categories!: ProductsCategoriesGetter
 }
 </script>

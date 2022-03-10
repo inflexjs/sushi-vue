@@ -25,6 +25,15 @@ import { Component, Vue, Prop, ModelSync } from 'vue-property-decorator';
 
 import Button from '@/components/UI/Button.vue'
 import Counter from '@/components/blanks/Counter.vue'
+import { Product } from '@/store/modules/products/state';
+
+export interface ICardProps {
+	title: Product['title']
+	information: Product['information']
+	price: Product['price']
+	image: Product['image']
+	showButton: boolean
+}
 
 @Component({
 	components: {
@@ -33,11 +42,11 @@ import Counter from '@/components/blanks/Counter.vue'
 	}
 })
 export default class Card extends Vue{
-	@Prop() title!: string
-	@Prop() information!: string
-	@Prop() price!: number
-	@Prop({default: 'none.jpg'}) image!: string
-	@Prop({default: true}) showButton!: boolean
+	@Prop() title!: ICardProps['title']
+	@Prop() information!: ICardProps['information']
+	@Prop() price!: ICardProps['price']
+	@Prop({default: 'none.jpg'}) image!: ICardProps['image']
+	@Prop({default: true}) showButton!: ICardProps['showButton']
 
 	@ModelSync('count', 'changeCount') countModel!: number
 }

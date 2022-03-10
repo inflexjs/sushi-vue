@@ -47,6 +47,9 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from '@/decorators'
+import { BasketRemoveAction, BasketChangeCountAction } from '@/store/modules/basket/actions'
+import { BasketBasketGetter, BasketDeliveryTextGetter, BasketSumCheckoutGetter } from '@/store/modules/basket/getters'
+
 
 import Card from '@/components/blanks/Card.vue'
 import BasketCard from '@/components/blanks/BasketCard.vue'
@@ -60,11 +63,11 @@ import Button from '@/components/UI/Button.vue'
 	}
 })
 export default class Basket extends Vue{
-	@Action('basketModule/remove') remove!: () => void
-	@Action('basketModule/remove') changeCount!: () => void
+	@Action('basketModule/remove') remove!: BasketRemoveAction
+	@Action('basketModule/changeCount') changeCount!: BasketChangeCountAction
 
-	@Getter('basketModule/basket') basket!: Object[]
-	@Getter('basketModule/deliveryText') deliveryText!: string
-	@Getter('basketModule/sumCheckout') sumCheckout!: number
+	@Getter('basketModule/basket') basket!: BasketBasketGetter
+	@Getter('basketModule/deliveryText') deliveryText!: BasketDeliveryTextGetter
+	@Getter('basketModule/sumCheckout') sumCheckout!: BasketSumCheckoutGetter
 }
 </script>

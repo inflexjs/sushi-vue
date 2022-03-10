@@ -13,13 +13,17 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import Link from '@/components/UI/Link.vue'
 
+export interface INavProps {
+	routes: string
+}
+
 @Component({
 	components: {
 		'link-component': Link
 	}
 })
 export default class Nav extends Vue{
-	@Prop({default: ''}) routes!: string
+	@Prop({default: ''}) routes!: INavProps['routes']
 
 	get filterRoutes() {
 		return this.$router.getRoutes().filter(route => route?.meta?.title)

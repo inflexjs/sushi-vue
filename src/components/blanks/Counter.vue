@@ -18,10 +18,16 @@
 <script lang='ts'>
 import { Component, Vue, Prop, Ref } from 'vue-property-decorator'
 
+export interface ICounterProps {
+	value: number
+}
+
 @Component
 export default class Counter extends Vue{
-	@Prop() readonly value!: number
+	@Prop() readonly value!: ICounterProps['value']
+
 	@Ref('input') readonly refInput!: HTMLInputElement
+
 	max = 10
 	min = 1
 

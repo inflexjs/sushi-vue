@@ -13,16 +13,29 @@
 
 <script lang='ts'>
 import {Component, Vue, Prop} from 'vue-property-decorator'
+import {ButtonView, ButtonTag, ButtonSize, ButtonType} from '@/types/components/UI/Button'
+
+export interface IButtonProps {
+	tag?: ButtonTag
+	view?: ButtonView
+	text?: string
+	size?: ButtonSize
+	icon?: string
+	disabled?: boolean
+	href?: string
+	type?: ButtonType
+}
 
 @Component
 export default class Button extends Vue{
-	@Prop({default: 'button'}) tag!: string
-	@Prop({default: 'primary'}) view!: string
-	@Prop({default: 'normal'}) text!: string
-	@Prop({default: 'small'}) size!: string
-	@Prop() icon!: string
-	@Prop() href!: string
-	@Prop() type!: string
+	@Prop({default: 'button'}) tag!: IButtonProps['tag']
+	@Prop({default: 'primary'}) view!: IButtonProps['view']
+	@Prop({default: 'normal'}) text!: IButtonProps['text']
+	@Prop({default: 'small'}) size!: IButtonProps['size']
+	@Prop() icon!: IButtonProps['icon']
+	@Prop() disabled!: IButtonProps['disabled']
+	@Prop() href!: IButtonProps['href']
+	@Prop() type!: IButtonProps['type']
 
 	get classes(){
 		const classes = [
@@ -30,6 +43,9 @@ export default class Button extends Vue{
 			`button--text-${this.text}`,
 			`button--size-${this.size}`,
 		]
+		if (this.disabled) {
+			classes.push('is-disabled')
+		}
 		return classes;
 	}
 

@@ -20,6 +20,14 @@
 <script lang='ts'>
 import { Component, Vue, Prop, ModelSync } from 'vue-property-decorator';
 import Counter from '@/components/blanks/Counter.vue'
+import { Product } from '@/store/modules/products/state';
+
+export interface IBaskedCardProps {
+	title: Product['title']
+	information: Product['information']
+	price: Product['price']
+	image: Product['image']
+}
 
 @Component({
 	components: {

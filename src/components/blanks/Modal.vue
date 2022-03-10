@@ -25,12 +25,19 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 
+export interface IModalProps {
+	loading: boolean
+	title: string
+	message: string
+	image: string
+}
+
 @Component
 export default class Modal extends Vue{
-	@Prop() loading!: boolean
-	@Prop() title!: string
-	@Prop() message!: string
-	@Prop() image!: string
+	@Prop() loading!: IModalProps['loading']
+	@Prop() title!: IModalProps['title']
+	@Prop() message!: IModalProps['message']
+	@Prop() image!: IModalProps['image']
 
 	mounted() {
 		disablePageScroll()

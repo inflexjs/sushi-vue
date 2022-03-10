@@ -1,10 +1,13 @@
 import { StateProducts } from '@/store/modules/products/state'
+import { TabItem } from '@/types/components/blanks/Tabs'
 
 const products = (state: StateProducts) => {
 	return state.products
 }
+export type ProductsProductsGetter = ReturnType<typeof products>
+
 const categories = (state: StateProducts) => {
-	const categories = [{
+	const categories: TabItem[] = [{
 		id: 0,
 		name: 'Все'
 	}]
@@ -18,6 +21,7 @@ const categories = (state: StateProducts) => {
 	});
 	return categories
 }
+export type ProductsCategoriesGetter = ReturnType<typeof categories>
 
 const getters = {
 	products,

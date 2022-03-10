@@ -1,7 +1,8 @@
 <template lang="pug">
-	img.b-skeleton(
-		src = "skeleton.svg"
-	)
+	.b-skeleton
+		img.__image(
+			src = "skeleton.svg"
+		)
 </template>
 
 <script lang='ts'>

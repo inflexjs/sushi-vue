@@ -10,14 +10,22 @@
 
 <script lang="ts">
 import {Component, Vue, Prop, PropSync, Emit} from 'vue-property-decorator'
+import { InputType } from '@/types/components/UI/Input'
+
+export interface IInputProps {
+	value?: string
+	errorSync?: boolean
+	type?: InputType
+	placeholder: string
+}
 
 @Component
 export default class Input extends Vue{
 
-	@Prop() type!: string
-	@Prop() value!: string
-	@PropSync('error') errorSync!: boolean
-	@Prop({default: ''}) placeholder!: string
+	@Prop() type!: IInputProps['type']
+	@Prop() value!: IInputProps['value']
+	@PropSync('error') errorSync!: IInputProps['errorSync']
+	@Prop({default: ''}) placeholder!: IInputProps['placeholder']
 
 	showPassword = false
 
