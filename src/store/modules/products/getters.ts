@@ -23,9 +23,13 @@ const categories = (state: StateProducts) => {
 }
 export type ProductsCategoriesGetter = ReturnType<typeof categories>
 
+const isFetch = (state: StateProducts) => state.isFetch
+export type ProductsisFetchGetter = ReturnType<typeof isFetch>
+
 const getters = {
 	products,
-	categories
+	categories,
+	isFetch
 }
 
 export default getters

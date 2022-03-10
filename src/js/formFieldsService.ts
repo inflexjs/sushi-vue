@@ -98,3 +98,7 @@ export const createFields = (fieldsNames: string[]): Record <string, FormField> 
 export const isValidFields = (fields: Record<string, FormField>): boolean => {
 	return !Object.keys(fields).some(field => fields[field].error)
 }
+
+export const isFilledFields = (fields: Record<string, FormField>) => {
+	return Object.keys(fields).some(field => !fields[field].value.toString().length)
+}

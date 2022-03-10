@@ -27,6 +27,7 @@
 			:error.sync = "fields.message.error"
 		)
 		button-component.__button(
+			:disabled = "isDisabled"
 			text = "normal"
 			size = "medium"
 			type = "button"
@@ -36,7 +37,7 @@
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
-import { validateFields, createFields, isValidFields } from '@/js/formFieldsService'
+import { validateFields, createFields, isValidFields, isFilledFields } from '@/js/formFieldsService'
 
 import Input from '@/components/UI/Input.vue'
 import Button from '@/components/UI/Button.vue'
@@ -69,6 +70,10 @@ export default class Form extends Vue{
 
 	clear() {
 		this.fields = createFields(this.fieldsNames)
+	}
+
+	get isDisabled() {
+		return isFilledFields(this.fields)
 	}
 }
 </script>

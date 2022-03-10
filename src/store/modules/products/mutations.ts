@@ -4,6 +4,8 @@ import { MutationTree } from 'vuex'
 export enum mutationTypesProducts {
 	CHANGE_COUNT = 'CHANGE_COUNT',
 	SET_PRODUCTS = 'SET_PRODUCTS',
+	SET_PAGINATION_PAGE = 'SET_PAGINATION_PAGE',
+	SET_IS_FETCH = 'SET_IS_FETCH'
 }
 
 const mutations: MutationTree<StateProducts> = {
@@ -14,8 +16,17 @@ const mutations: MutationTree<StateProducts> = {
 		}
 	},
 	[mutationTypesProducts.SET_PRODUCTS](state: StateProducts, products: Product[]) {
-		state.products = products
-	}
+		state.products = [
+			...state.products,
+			...products
+		]
+	},
+	[mutationTypesProducts.SET_PAGINATION_PAGE](state: StateProducts, page: number) {
+		state.pagination.page = page
+	},
+	[mutationTypesProducts.SET_IS_FETCH](state: StateProducts, status: boolean) {
+		state.isFetch = status
+	},
 }
 
 export default mutations

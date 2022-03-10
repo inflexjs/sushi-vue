@@ -1,4 +1,4 @@
-<template lang="pug">
+<template functional lang="pug">
 	.b-skeleton.--tab
 		img.__image(
 			v-for = "_ in 4"

@@ -74,7 +74,7 @@
 		.__pay
 			.__pay-top
 				button-component.__pay-button(
-					:disabled = "!basket.length"
+					:disabled = "isDisabled"
 					text = "normal"
 					size = "big"
 					@click = "checkout"	
@@ -101,7 +101,7 @@ import { Getter, Action } from '@/decorators'
 import { FormField } from '@/types/components/blanks/Form'
 import { BasketRemoveAction, BasketChangeCountAction, BasketClearBasketAction } from '@/store/modules/basket/actions'
 import { BasketBasketGetter, BasketDeliveryTextGetter, BasketSumProductsGetter, BasketSumCheckoutGetter, BasketTotalCountGetter } from '@/store/modules/basket/getters'
-import { validateFields, createFields, isValidFields } from '@/js/formFieldsService'
+import { validateFields, createFields, isValidFields, isFilledFields } from '@/js/formFieldsService'
 
 import Button from '@/components/UI/Button.vue'
 import Link from '@/components/UI/Link.vue'
@@ -180,6 +180,10 @@ export default class Order extends Vue{
 		}, {
 			products: this.basket
 			})
+	}
+
+	get isDisabled() {
+		return !this.basket.length || isFilledFields(this.fields)
 	}
 
 	get classes() {

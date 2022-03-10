@@ -1,15 +1,8 @@
-<template lang="pug">
-	.b-skeleton
+<template functional lang="pug">
+	.b-skeleton(
+		:key = "`skeleton-${Math.random()}`"
+	)
 		img.__image(
 			src = "skeleton.svg"
 		)
 </template>
-
-<script lang='ts'>
-import { Component, Vue } from 'vue-property-decorator';
-
-@Component
-export default class SkeletonCard extends Vue{
-
-}
-</script>

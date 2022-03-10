@@ -57,7 +57,8 @@ export default class Button extends Vue{
 			...this.tag === 'router-link' && {
 				to:this.href
 			},
-			type: this.type
+			type: this.type,
+			disabled: this.disabled
 		}
 	}
 }

@@ -25,25 +25,27 @@ const changeCount = ({ commit }: ActionContext<StateProducts, StateRoot>, payloa
 }
 export type ProductsChangeCountAction = ActionType<typeof changeCount>
 
-const fetchProducts = async ({ state, dispatch }: ActionContext<StateProducts, StateRoot>) => {
-	if (!state.products.length) {
-		try {
-			const { data } = await api.getProducts()
-			const products = data.map(product => {
-				return {
-					id: product.id,
-					title: product.title.length > 20 ? `${product.title.slice(0, 20)}...` : product.title,
-					information: product.description.length > 50 ? `${product.description.slice(0, 50)}...` : product.description,
-					count: 1,
-					price: product.price,
-					image: product.image,
-					category: getCategoryOptions(product.category)
-				}
-			})
-			dispatch('setProducts', products)
-		} catch (e) {
-			console.log(e);
-		}
+const fetchProducts = async ({ state, dispatch, commit }: ActionContext<StateProducts, StateRoot>) => {
+	try {
+		commit(mutationTypesProducts.SET_IS_FETCH, true)
+		const { data } = await api.getProducts(state.pagination.page,state.pagination.perPage)
+		const products = data.map(product => {
+			return {
+				id: product.id,
+				title: product.title.length > 20 ? `${product.title.slice(0, 20)}...` : product.title,
+				information: product.description.length > 50 ? `${product.description.slice(0, 50)}...` : product.description,
+				count: 1,
+				price: product.price,
+				image: product.image,
+				category: getCategoryOptions(product.category)
+			}
+		})
+		commit(mutationTypesProducts.SET_PAGINATION_PAGE, state.pagination.page + 1)
+		dispatch('setProducts', products)
+		commit(mutationTypesProducts.SET_IS_FETCH, false)
+	} catch (e) {
+		console.log(e);
+		commit(mutationTypesProducts.SET_IS_FETCH, true)
 	}
 }
 export type ProductsFetchProductsAction = ActionType<typeof fetchProducts>

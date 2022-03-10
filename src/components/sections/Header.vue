@@ -8,18 +8,14 @@
 					src = "@/assets/images/utility/logo.svg"
 				)
 				h1 example.shop
-			nav-component(
-				:routes = "routes"
-			)
+			nav-component.__nav
 </template>
 
 <script>
-import {Component, Vue, Prop} from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 
 import Nav from '@/components/blanks/Nav.vue'
 import Link from '@/components/UI/Link.vue'
-
-import { routes } from '@/router'
 
 @Component({
 	components: {
@@ -28,6 +24,5 @@ import { routes } from '@/router'
 	}
 })
 export default class Header extends Vue{
-	routes = routes
 }
 </script>

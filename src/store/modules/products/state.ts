@@ -21,20 +21,20 @@ export type Product = {
 
 export type StateProducts = {
 	products: Product[]
+	pagination: {
+		page: number
+		perPage: number
+	}
+	isFetch: boolean
 }
 
 const state = (): StateProducts => ({
-	products: [
-		// {
-		// 	id: 1,
-		// 	title: 'Классический ролл лосось',
-		// 	information: '6 шт. / 205г.',
-		// 	count: 1,
-		// 	price: 240,
-		// 	image: 'sushi1.png',
-		// 	category: getCategoryOptions(1)
-		// }
-	]
+	products: [],
+	pagination: {
+		page: 1,
+		perPage: 9
+	},
+	isFetch: false
 })
 
 export default state
